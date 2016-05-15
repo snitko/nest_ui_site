@@ -1,0 +1,41 @@
+%h1.noTopMargin.noBottomMargin Nest UI
+%h5 Web framework for building UIs, written in Dart.
+
+.mainSection
+
+  .pure-g
+    .pure-u-1.pure-u-lg-4-24
+      .pure-container-left
+        .menu
+          = link_to "Overview",     "/", class: 'current'
+          = link_to "Installation", "/installation.html"
+          = link_to "Components",   "/components.html"
+          = link_to "Properties",   "/properties.html"
+          = link_to "Children/Parents", "/children-and-parents.html"
+          = link_to "Events",           "/events.html"
+          = link_to "Behaviors",        "/behaviors.html"
+          = link_to "Templates",        "/templates.html"
+          = link_to "Validations",      "/validations.html"
+          = link_to "Logger",           "/logger.html"
+
+    .pure-u-1.pure-u-lg-20-24
+      .pure-container-right
+        Most frameworks focus on how to make more things happen with less code and magic. They invent foreign concepts and lots of things don't make sense. Nest UI, on the other hand, follows these simple principles:
+
+        %ul
+          %li Keep an easy to understand structure / mental model that's assumed intuitively, without remembering it.
+          %li Use familiar concepts only.
+          %li Complete separation of code and HTML: no front-end rendering, no templating languages etc.
+          %li Should be usable for one page webapps as well regular websites.
+
+        %h3 Show me some code!
+        
+        Here's an example of a code that makes a button change its caption and become locked once it's clicked. First, the Dart code:
+
+        %pre
+          %code.language-dart= partial "code_partials/overview_1_1.dart"
+
+        Now the corresponding HTML code:
+
+        %pre
+          %code.language-markup=html_code_partial("overview_1_2.html")

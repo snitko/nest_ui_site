@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:charset => "utf-8"}
+    %meta{:content => "width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no", :name => "viewport"}
+    / Use title if it's in the page YAML frontmatter
+
+    %title= current_page.data.title || "Nest UI - Dart web framework for building UIs"
+
+    %link{:href => "https://fonts.googleapis.com/css?family=Kreon:400,700,300", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "https://fonts.googleapis.com/css?family=Fira+Mono:400,700", :rel => "stylesheet", :type => "text/css"}
+
+    /[if lte IE 8]
+      = javascript_include_tag "http://html5shiv.googlecode.com/svn/trunk/html5.js"
+      = stylesheet_link_tag "http://yui.yahooapis.com/combo?pure/0.5.0/base-min.css&pure/0.5.0/grids-min.css&pure/0.5.0/grids-responsive-old-ie-min.css"
+
+    = stylesheet_link_tag "http://yui.yahooapis.com/combo?pure/0.5.0/base-min.css&pure/0.5.0/grids-min.css&pure/0.5.0/grids-responsive-min.css"
+
+    = stylesheet_link_tag :site, :prism
+    = javascript_include_tag :prism
+
+  %body
+    = yield
