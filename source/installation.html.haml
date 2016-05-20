@@ -27,7 +27,12 @@ title: "Installation - NestUI"
               %code.block.language-javascript= partial "code_partials/installation_1_2.dart"
             This is your bare minimum for a NestUI app. You will then need to include it into your html file with the following script tag: <div class="inlineCode">&lt;script type="application/dart" src="app.dart"&gt;</script></div>.
 
+          %p.note
+            <b>Note:</b> everywhere else in this documentation, the import statements in the dart code will
+            from now on be omitted. The logger try/catch statements will be omitted too to
+            simplify understanding, avoid clutter and focus on the important things.
+
           %li Open your Dartium browser, open the html file you added the script tag to, then make sure there are no errors in the browser console (F12 -> Console).
 
           %li Finally, you'll need to compile your app. This is done with <div class="inlineCode">dart2js --out=app.js app.dart</div>. To include the compiled .js file use the following script tag: <div class="inlineCode">&lt;script type="application/javascript" src="app.js" defer&gt;</script></div> - note the use of <i>defer</i>, it's mandatory. Needless to say, you'll need to remove the dart script tag, otherwise you'll have conflicts.
-          %p.small Note: the compiled file size is rather big. I'm working to improve that, but because NestUI uses some dart mirrors, it's currently unavoidable. It's obviously expected to improve in the near future.
+          %p.note <b>Note:</b> the compiled file size is rather big. I'm working to improve that, but because NestUI uses some dart mirrors, it's currently unavoidable. It's obviously expected to improve in the near future.
