@@ -1,0 +1,33 @@
+---
+title: "Installation - NestUI"
+---
+
+.mainSection
+
+  .pure-g
+    .pure-u-1.pure-u-lg-4-24
+      .pure-container-left
+        = partial "menu", locals: { current_page: "Installation" }
+
+    .pure-u-1.pure-u-lg-20-24
+      .pure-container-right
+
+        %ol
+          %li Install <a href="https://www.dartlang.org/downloads/">Dart</a> and <a href="https://www.dartlang.org/tools/dartium/">Dartium browser</a>. The latter is not necessary, but is a convenience - you don't want to compile to javascript everytime you make changes to the dart code and Dartium has a built-in Dart VM.
+
+          %li
+            Choose a directory where you dart app lives and create a file called <div class="inlineCode">pubspec.yaml</div> with the following contents:
+            %pre
+              %code.block.language-dart= partial "code_partials/installation_1_1.yaml"
+            Feel free to change name, version, author and description - it's your app, after all! Then run <div class="inlineCode">pub get</div>. This will install NestUI with all the dependencies.
+
+          %li
+            Create a dart file, for example <div class="inlineCode">app.dart</div>, and include the following into that file:
+            %pre
+              %code.block.language-javascript= partial "code_partials/installation_1_2.dart"
+            This is your bare minimum for a NestUI app. You will then need to include it into your html file with the following script tag: <div class="inlineCode">&lt;script type="application/dart" src="app.dart"&gt;</script></div>.
+
+          %li Open your Dartium browser, open the html file you added the script tag to, then make sure there are no errors in the browser console (F12 -> Console).
+
+          %li Finally, you'll need to compile your app. This is done with <div class="inlineCode">dart2js --out=app.js app.dart</div>. To include the compiled .js file use the following script tag: <div class="inlineCode">&lt;script type="application/javascript" src="app.js" defer&gt;</script></div> - note the use of <i>defer</i>, it's mandatory. Needless to say, you'll need to remove the dart script tag, otherwise you'll have conflicts.
+          %p.small Note: the compiled file size is rather big. I'm working to improve that, but because NestUI uses some dart mirrors, it's currently unavoidable. It's obviously expected to improve in the near future.

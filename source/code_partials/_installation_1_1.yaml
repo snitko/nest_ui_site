@@ -1,0 +1,8 @@
+name: nest_ui_app
+version: 0.1.0
+description: >
+  An example app for NestUI
+author: Your Name <your@email.com>
+
+dependencies:
+  nest_ui: 

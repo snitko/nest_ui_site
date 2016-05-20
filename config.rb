@@ -43,3 +43,16 @@ helpers do
     partial("code_partials/#{name}").gsub("<", "&lt;").gsub(">", "&gt;")
   end
 end
+
+$menu = {
+  "Overview" => "/",
+  "Installation" => "/installation.html",
+  "Components" => "/components.html",
+  "Properties" => "/properties.html",
+  "Children/Parents" => "/children-and-parents.html",
+  "Events" => "/events.html",
+  "Behaviors" => "/behaviors.html",
+  "Templates" => "/templates.html",
+  "Validations" => "/validations.html",
+  "Logger" => "/logger.html"
+}
