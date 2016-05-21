@@ -1,0 +1,69 @@
+---
+title: "Children & Parents - NestUI"
+---
+
+.mainSection
+
+  .pure-g
+    .pure-u-1.pure-u-lg-4-24
+      .pure-container-left
+        = partial "menu", locals: { current_page: "Children & Parents" }
+
+    .pure-u-1.pure-u-lg-20-24
+      .pure-container-right
+
+        %p
+          Children/parent relationship between components in NestUI usually depends on the DOM hierarchy, but technically it doesn't have to.
+          Every component has a <span class="inlineCode">.parent</span> property, which will be null if there is no parent (as is the case with
+          the root <span class="inlineCode">&lt;body&gt;</span> or any other temporarily orphaned component). Every component also has a
+          <span class="inlineCode">.children</span> property which is a List of all the children components.
+
+        %p
+          When we call <span class="inlineCode">new NestUIApp()</span> what happens is, it finds the <span class="inlineCode">&lt;body&gt;</span>
+          element in the dom, creates an instance of component for it and assigns this <span class="inlineCode">&lt;body&gt;</span> to the
+          <span class="inlineCode">.dom_element</span> property of the component. Then it calls <span class="inlineCode">.initChildComponents()</span> method
+          on this component, which, as you can imagine, parses the dom_element (<span class="inlineCode">&lt;body&gt;</span>) descendants until and
+          identifies the ones which have a <span class="inlineCode">data-component-class</span> attribute on them.
+
+        %p
+          For each of those elements a new component is instantiated and, of course, the elements are assigned as dom_elements to those Component instances.
+          Then, the components are added into the <span class="inlineCode">.children</span> List of their parent and their own <span class="inlineCode">.parent</span>
+          property is set accordingly. And finally, once again, <span class="inlineCode">initChildComponents()</span> is called once again on each of those components.
+
+        %p Let's illustrate the above with some code. Create component classes first:
+
+        %pre
+          %code.language-dart= partial "code_partials/children_and_parents_1_1.dart"
+
+        %pre
+          %code.block.language-markup= html_code_partial "children_and_parents_1_2.html"
+
+        %p
+          Here we can see that the <span class="inlineCode">&lt;form&gt;</span> element has three two child nodes:
+          <span class="inlineCode">&lt;h1&gt;</span> and <span class="inlineCode">&lt;div&gt;</span>, however those
+          don't have <span class="inlineCode">data-component-class</span> attributes, so no new components based on
+          those nodes are created. However, the <span class="inlineCode">&lt;button&gt;</span> element does have such
+          attribute and a new Component is created based on this node. Even though the <span class="inlineCode">&lt;button&gt;</span>
+          node isn't the direct child of the <span class="inlineCode">&lt;form&gt;</span> node, but rather a descendant,
+          the UserFormComponent instance would still have the ButtonComponent instance as a child.
+
+        %p
+          The Component class provides a number of methods to manipulate children. For example, the <span class="inlineCode">.applyToChildren()</span>
+          will call a specific method on all of the child component, while <span class="inlineCode">.findChildrenByRole()</span> will
+          fin all child components with a specific role. Refer to the documentation/code for more insight.
+
+        %h3 Adding components dynamically
+
+        %p
+          You sometimes might want to add a manually created component into the DOM and also into the components hierarchy.
+          This can be easily done by invoking the <span class="inlineCode">.addChild()</span> method on any component. The method
+          accepts another Component instance as an argument. Apart from adding the component into the <span class="inlineCode">.children</span>
+          list, it will also append it to the end of the parent's dom_element - a default behavior which can be changed by
+          overwriting the <span class="inlineCode">_appendChildDomElement(HtmlElement el)</span>. For example:
+
+        %pre
+          %code.language-dart= partial "code_partials/children_and_parents_1_3.dart"
+
+        Now calling <span class="inlineCode">.addChild()</span> on a UserFormComponent instance will result
+        in appending elements to the <span class="inlineCode">&lt;div class="formFields"&gt;</span> instead of
+        the <span class="inlineCode">&lt;form&gt;</span> element itself.
