@@ -17,7 +17,8 @@ h6 { font-size: 85%; font-weight: normal; margin: 0 0 0 0; }
 .noBottomMargin { margin-bottom: 0px; }
 
 .mainSection { margin-top: 2em; }
-code { font-family: Fira Mono; font-size: 75%; margin: 0.5em 0; }
+code { font-family: Fira Mono; font-size: 75%; margin: 0.5em 0; line-height: 50%; }
+pre { line-height: 50% !important; }
 code.block { display: block; }
 .inlineCode { background-color: #ddd; padding: 0 0.3em; font-family: Fira Mono; font-size: 75%; white-space: pre; border-radius: 0.3em; display: inline-block; margin: 0 0 0 0; }
 pre { max-width: 800px; }

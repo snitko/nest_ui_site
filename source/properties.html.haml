@@ -1,0 +1,91 @@
+---
+title: "Properties - NestUI"
+---
+
+.mainSection
+
+  .pure-g
+    .pure-u-1.pure-u-lg-4-24
+      .pure-container-left
+        = partial "menu", locals: { current_page: "Properties" }
+
+    .pure-u-1.pure-u-lg-20-24
+      .pure-container-right
+
+        %p
+          Component properties are basically just Dart object properties, except that they are also
+          tied to either an HtmlEelement's innerText or its attribute of choice. By "tied" I, of course, mean
+          that whenever we assign a new value to that property, the corresponding node in the dom changes its value - 
+          but not the other way round.
+
+        %p
+          To illustrate this, let's define a property called "caption" on a button and then change it.
+        
+        %pre
+          %code.language-dart= partial "code_partials/properties_1_1.dart"
+
+        %p.note
+          <b>Note:</b> the <i>attribute_names</i> name is probably a bad idea, because it is misleading.
+          %br
+          Expect this to be renamed into <i>property_names</i> in the future for uniformity reasons.
+
+        %p And the corresponding html code:
+        %pre
+          %code.block.language-markup= html_code_partial "properties_1_2.html"
+
+        %p
+          Currently, the value of the <i>caption</i> property for this component is "Button1".
+          Assuming the component is in a variable called <span class="inlineCode">button1</span>,
+          we can change the caption like this:
+
+        %pre
+          %code.language-dart button1.caption="Click me";
+
+        which will in turn produce the following changes in the html code:
+        %pre
+          %code.block.language-markup= html_code_partial "properties_1_3.html"
+
+        %p
+          Sometimes it's convenient to have properties associated with the innerText of html elements,
+          which are children to the component's own dom_element. If we, for example, wanted the caption
+          property to be associated with a <span class="inlineCode">&lt;span&gt;</span> element
+          inside button, then all we had to do is change our html, while the Dart code would remain
+          the same:
+
+        %pre
+          %code.block.language-markup= html_code_partial "properties_1_4.html"
+
+        Notice how the <span class="inlineCode">data-component-property</span> html attribute moved
+        inside the <span class="inlineCode">&lt;span&gt;</span> element.
+
+        
+        %h3 Associating properties with html attributes
+        %p
+          Suppose we need to add a property to our button, which regulates whether the button is enabled or disabled.
+          We obviously need this property to change the <i>disabled</i> attribute on the <span class="inlineCode">&lt;button&gt;</span>
+          element. First, let's add this property into the attribute_names list:
+
+        %pre
+          %code.language-dart= partial "code_partials/properties_1_5.dart"
+
+        Then, let's change our html code and add a special html attribute to our button, which will connect
+        the <i>disabled</i> property of the Component:
+
+        %pre
+          %code.block.language-markup= html_code_partial "properties_1_6.html"
+
+        Now, if we change the property:
+
+        %pre
+          %code.language-dart button1.disabled="disabled";
+
+        we'll get the following html:
+
+        %pre
+          %code.block.language-markup= html_code_partial "properties_1_7.html"
+
+        Notice how the <span class="inlineCode">disabled="disabled"</span> attribute was added to
+        the <span class="inlineCode">&lt;button&gt;</span> element. Of course, the
+        <span class="inlineCode">data-component-attr-name</span> can be added not just to the dom element
+        of the component, but also to any of children nodes of that element - then the component
+        will update them upon property change.
