@@ -1,0 +1,51 @@
+---
+title: "Roles - NestUI"
+---
+
+.mainSection
+
+  .pure-g
+    .pure-u-1.pure-u-lg-4-24
+      .pure-container-left
+        = partial "menu", locals: { current_page: "Roles" }
+
+    .pure-u-1.pure-u-lg-20-24
+      .pure-container-right
+
+        %p
+          Each component may have a number roles, which determine its effects on their parents. To understand the value
+          of roles, we can come up with a simple example.
+
+        %p
+          Suppose we have a single form on the page, which can simultaneously log existing users in, but also create a new
+          account. There are two fields - username and password - and two buttons, one for the "sign in" action and the other
+          one for the "sign up" action. Clicking on either button invokes the appropriate action.
+          In this case, it'd be rather wasteful to create two different Component classes for each button, rather a form should
+          decide which request to send. But how would a form know which button was clicked then? Well, here come roles. We could have
+          a <span class="inlineCode">sign_up</span> role assigned to the "Sign Up" button and a <span class="inlineCode">sign_in</span>
+          role - to the "Sign in" button:
+
+        %pre
+          %code.block.language-markup= html_code_partial "roles_1_1.html"
+
+        %p.note
+          <b>Note:</b> you can assign more than one role by separating them with commas, for example:
+          <i>data-component-roles="role1,role2"</i>.
+
+        Then our buttons will have their <span class="inlineCode">.roles</span> List contain the following
+        (assuming ButtonComponent instances are in button1 and button2 variables):
+
+        %pre
+          %code.language-dart= partial "code_partials/roles_1_2.dart"
+
+        %p
+          Now, when a "click" event happens to either button, we can catch it and know which button it came from
+          (see <a href="/events.html">events section</a> for a thorough explanation of events):
+
+        %pre
+          %code.language-dart= partial "code_partials/roles_1_3.dart"
+
+        %p
+          Thus, roles promote the idea of dumb components. The lower the component is in the hierarchy,
+          the dumber it is. A button shouldn't know which request to send, a form should. Button's
+          responsibility is to catch an event and notify the parent.
