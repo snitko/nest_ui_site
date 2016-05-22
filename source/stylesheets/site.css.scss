@@ -16,7 +16,7 @@ h6 { font-size: 85%; font-weight: normal; margin: 0 0 0 0; }
 .noTopMargin { margin-top: 0px; }
 .noBottomMargin { margin-bottom: 0px; }
 
-.mainSection { margin-top: 2em; }
+.mainSection { margin-top: 1em; }
 code { font-family: Fira Mono; font-size: 75%; margin: 0.5em 0; line-height: 50%; }
 pre { line-height: 50% !important; }
 code.block { display: block; }
@@ -38,4 +38,9 @@ ol li { margin: 0 0 1em 0;}
 
 .faq {
   p { margin-top: 0px; }
+}
+
+header {
+  margin: 0 0 0 0;
+  h5 { margin-top: 1em; }
 }
