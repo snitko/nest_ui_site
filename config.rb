@@ -55,5 +55,8 @@ $menu = {
   "Behaviors" => "/behaviors.html",
   "Templates" => "/templates.html",
   "Validations" => "/validations.html",
-  "Logger" => "/logger.html"
+  "Logger" => "/logger.html",
+  "FAQ" => "/faq.html",
+  "Examples" => "/examples.html",
+  "Github" => "/github.html"
 }

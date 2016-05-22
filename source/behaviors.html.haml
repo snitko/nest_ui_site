@@ -1,0 +1,56 @@
+---
+title: "Behaviors - NestUI"
+---
+
+.mainSection
+
+  .pure-g
+    .pure-u-1.pure-u-lg-4-24
+      .pure-container-left
+        = partial "menu", locals: { current_page: "Behaviors" }
+
+    .pure-u-1.pure-u-lg-20-24
+      .pure-container-right
+
+        %p
+          Behaviors are special methods invoked that usually manipulate the associated dom elements
+          of components. For example, we might want to hide or disable a button - those are behaviors.
+          To invoke a behavior one must call a <span class="inlineCode">behave()</span> method on a component
+          and pass it the behavior name:
+
+        %pre
+          %code.language-dart button1.behave("disable");
+        
+        %p
+          It is quite common to invoke behaviors from within components in response
+          to a certain event that occured, for example we could disable a button if
+          someone clicks it:
+
+        %pre
+          %code.language-dart= partial "code_partials/behaviors_1_1.dart"
+
+        %p
+          There are some behaviors which NestUI has for all components, others are only available
+          for some (see files in <a href="https://github.com/snitko/nest_ui/tree/master/lib/behaviors">behaviors dir</a>).
+          For example, all components have <span class="inlineCode">hide</span>, <span class="inlineCode">show</span>,
+          <span class="inlineCode">lock</span>, <span class="inlineCode">unlock</span>, <span class="inlineCode">lock</span>,
+          and <span class="inlineCode">unlock</span> behaviors.
+
+          And you can certainly create your own custom behaviors. To do that, you first need to define a class that extends
+          <span class="inlineCode">BaseComponentBehaviors</span> and has the following constructor:
+
+        %pre
+          %code.language-dart= partial "code_partials/behaviors_1_2.dart"
+
+        %p Finally, add your behavior class to the list of behaviors in your component:
+
+        %pre
+          %code.language-dart= partial "code_partials/behaviors_1_3.dart"
+
+        %p
+          As you have probably guessed, you can define and add as many behavior classes as you want,
+          combining different behaviors for various components, effectively making Behavior classes modules.
+          Now we can invoke our newly created behavior with:
+
+        %pre
+          %code.language-dart button1.behave("rockAndRoll");
