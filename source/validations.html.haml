@@ -29,8 +29,8 @@ title: "Validations - NestUI"
         %p
           The first thing to notice here is that textarea component is actually more than just textarea,
           but is actually a div, which wraps <span class="inlineCode">&lt;textarea&gt;</span> and another
-          div where our errors will go. This is intentional, since in our app a text field such as presented
-          is also responsible for displaying its own validataion errors and it's only logical to combine this
+          div where our errors will go. This is intentional, since in our app a text field such as presented here
+          is also responsible for displaying its own validation errors and it's only logical to combine this
           all into one component.
 
         %p
@@ -44,14 +44,14 @@ title: "Validations - NestUI"
         %p
           And <span class="inlineCode">data-component-property="validation_errors_summary"</span> obviously connects
           the stated property of the component with the text property of that HtmlElement. Again, no additional code is required -
-          errors will magically appear in it, you'll just need to style this div accordingly (red font color, perhaps!).
+          errors will just appear in it, you'll just need to style this div accordingly (red font color, perhaps!).
 
         %p Now, we'll write the Dart code that creates and runs validations:
         %pre
           %code.language-dart= partial "code_partials/_validations_1_2.dart"
 
         %p
-          Now, if the text field is empty or the text in it is less characters long, a list of all validation
+          If the text field is empty or it is 5 characters long or less, a list of all validation
           errors will be displayed in the appropriate HtmlElement below the actual <span class="inlineCode">&lt;textarea&gt;</span> field.
 
         %p For a full list of validation methods, please refer to the README of the <a href="https://github.com/snitko/dart-validatable">validatable package.</a>

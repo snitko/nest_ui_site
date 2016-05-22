@@ -17,19 +17,19 @@ title: "Templates - NestUI"
           is being created manually (not by parsing the DOM after calling <span class="inlineCode">.initChildComponents()</span>.
         
         %p
-          It is best explained by presenting a usecase: let's say users of our site have the ability to post comments. When the page
+          It is best explained by presenting a use case: let's say users of our site have the ability to post comments. When the page
           loads, we might have some comments already on the page - for those, <span class="inlineCode">CommentComponent</span>
           instances will be created automatically. However, when our user adds a new comment, we'll need to create a dom_element
-          to be appended to the comment's list. In this case, the CommentComponent will search the DOM for an element with
-          <span class="inlineCode">data-component-template="CommentComponent"</span>, clone it and assign the newly created
-          component's dom_element to the clone element.
+          to be appended to the comment's list. In this case, we first create an instance of the CommentComponent, which will
+          search the DOM for an element with <span class="inlineCode">data-component-template="CommentComponent"</span>,
+          clone it and assign the newly created component's dom_element to the cloned element.
 
         %p
           After that, we can add this newly created component to some other component as a child, which will automatically append it
           to the parent's dom_element.
 
         %p
-          Let's illustrate that with some code and for simplicity reasons, we'll make it so that new comments always have the same text,
+          Let's illustrate that with some code - and for simplicity reasons, we'll make it so that new comments always have the same text,
           there is no form to enter their text and they are added simply by clicking the button. First, the html code:
 
         %pre
@@ -39,7 +39,7 @@ title: "Templates - NestUI"
           Notice that the element for the template is also automatically the first comment. While acceptable, it's
           not always desirable. If, for example, we were to delete all comments from the page, we would have no template,
           and trying to add a new comment would result in an error. Thus, perhaps it's better to make the template a separate
-          element and to make in invisible:
+          element and to make it invisible:
 
         %pre
           %code.block.language-markup= html_code_partial "templates_1_2.html"

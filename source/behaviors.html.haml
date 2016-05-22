@@ -13,27 +13,27 @@ title: "Behaviors - NestUI"
       .pure-container-right
 
         %p
-          Behaviors are special methods invoked that usually manipulate the associated dom elements
+          Behaviors are special methods that usually manipulate the associated dom elements
           of components. For example, we might want to hide or disable a button - those are behaviors.
           To invoke a behavior one must call a <span class="inlineCode">behave()</span> method on a component
-          and pass it the behavior name:
+          and pass it a behavior name:
 
         %pre
           %code.language-dart button1.behave("disable");
         
         %p
           It is quite common to invoke behaviors from within components in response
-          to a certain event that occured, for example we could disable a button if
+          to a certain event that occurred, for example we could disable a button if
           someone clicks it:
 
         %pre
           %code.language-dart= partial "code_partials/behaviors_1_1.dart"
 
         %p
-          There are some behaviors which NestUI has for all components, others are only available
+          There are some behaviors which NestUI defines for all components, others are only available
           for some (see files in <a href="https://github.com/snitko/nest_ui/tree/master/lib/behaviors">behaviors dir</a>).
           For example, all components have <span class="inlineCode">hide</span>, <span class="inlineCode">show</span>,
-          <span class="inlineCode">lock</span>, <span class="inlineCode">unlock</span>, <span class="inlineCode">lock</span>,
+          <span class="inlineCode">disable</span>, <span class="inlineCode">enable</span>, <span class="inlineCode">lock</span>,
           and <span class="inlineCode">unlock</span> behaviors.
 
           And you can certainly create your own custom behaviors. To do that, you first need to define a class that extends

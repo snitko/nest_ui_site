@@ -15,20 +15,20 @@ title: "Children & Parents - NestUI"
         %p
           Children/parent relationship between components in NestUI usually depends on the DOM hierarchy, but technically it doesn't have to.
           Every component has a <span class="inlineCode">.parent</span> property, which will be null if there is no parent (as is the case with
-          the root <span class="inlineCode">&lt;body&gt;</span> or any other temporarily orphaned component). Every component also has a
+          the root component <span class="inlineCode">&lt;body&gt;</span> or any other temporarily orphaned component). Every component also has a
           <span class="inlineCode">.children</span> property which is a List of all the children components.
 
         %p
           When we call <span class="inlineCode">new NestUIApp()</span> what happens is, it finds the <span class="inlineCode">&lt;body&gt;</span>
-          element in the dom, creates an instance of component for it and assigns this <span class="inlineCode">&lt;body&gt;</span> to the
+          element in the DOM, creates an instance of component for it and assigns this <span class="inlineCode">&lt;body&gt;</span> to the
           <span class="inlineCode">.dom_element</span> property of the component. Then it calls <span class="inlineCode">.initChildComponents()</span> method
-          on this component, which, as you can imagine, parses the dom_element (<span class="inlineCode">&lt;body&gt;</span>) descendants until and
-          identifies the ones which have a <span class="inlineCode">data-component-class</span> attribute on them.
+          on this component, which, as you can imagine, parses the dom_element (<span class="inlineCode">&lt;body&gt;</span>) innerHtml until it
+          identifies descendants which have a <span class="inlineCode">data-component-class</span> attribute on them.
 
         %p
           For each of those elements a new component is instantiated and, of course, the elements are assigned as dom_elements to those Component instances.
           Then, the components are added into the <span class="inlineCode">.children</span> List of their parent and their own <span class="inlineCode">.parent</span>
-          property is set accordingly. And finally, once again, <span class="inlineCode">initChildComponents()</span> is called once again on each of those components.
+          property is set accordingly. And finally, once again, <span class="inlineCode">initChildComponents()</span> is called on each of those components.
 
         %p Let's illustrate the above with some code. Create component classes first:
 
@@ -39,7 +39,7 @@ title: "Children & Parents - NestUI"
           %code.block.language-markup= html_code_partial "children_and_parents_1_2.html"
 
         %p
-          Here we can see that the <span class="inlineCode">&lt;form&gt;</span> element has three two child nodes:
+          Here we can see that the <span class="inlineCode">&lt;form&gt;</span> element has two child nodes:
           <span class="inlineCode">&lt;h1&gt;</span> and <span class="inlineCode">&lt;div&gt;</span>, however those
           don't have <span class="inlineCode">data-component-class</span> attributes, so no new components based on
           those nodes are created. However, the <span class="inlineCode">&lt;button&gt;</span> element does have such
@@ -50,7 +50,7 @@ title: "Children & Parents - NestUI"
         %p
           The Component class provides a number of methods to manipulate children. For example, the <span class="inlineCode">.applyToChildren()</span>
           will call a specific method on all of the child component, while <span class="inlineCode">.findChildrenByRole()</span> will
-          fin all child components with a specific role. Refer to the documentation/code for more insight.
+          find all child components with a specific role. Refer to the documentation/code for more insight.
 
         %h3 Adding components dynamically
 

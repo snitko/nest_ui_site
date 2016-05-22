@@ -11,7 +11,7 @@
 
         %ul
           %li Keep an easy to understand structure / mental model that's assumed intuitively, without remembering it.
-          %li Use familiar concepts only.
+          %li Use familiar concepts.
           %li Complete separation of code and HTML: no front-end rendering, no templating languages etc.
           %li Should be usable for one page webapps as well as regular websites.
 
@@ -19,10 +19,10 @@
 
         %ul
           %li Define components which in turn may have other components as children
-          %li Children broadcast events to their parents
+          %li Children publish events to their parents
           %li Properties of Component objects may be tied to html element's attributes or innerText
           %li Child components may have roles, so that parents know how to react to certain events based on roles their children have.
-          %li Each component has a set of behaviors which define how it interacts with the user by changing its corresponding DOM element properties (for example: animations, display etc).
+          %li Each component has a set of behaviors which define how it interacts with users by changing its corresponding DOM element properties (for example: animations, display etc).
 
         %h3 Show me some code!
         
@@ -44,17 +44,18 @@
           the corresponding property of the ButtonComponent object changes.
 
         %p
-          Then by saying  <div class="inlineCode">native_events = ["click"];</div> we tell
+          Then, by saying <div class="inlineCode">native_events = ["click"];</div> we tell
           ButtonComponent that it has to listen to the corresponding html's element events,
-          in this case the click event. This is because in NestUI compoments may have their own custom
+          in this case the click event. This is because in NestUI components may have their own custom
           events generated in the code, so it's useful to separate native browser events and non-native
           ones. You will later learn that for non-native ones, you don't need to list them in
           a special property like native_events and you can go on and define handlers straight away.
 
         %p
-          Talking about handlers: now that we can catch the native click event, we need a handler
-          for it, so the button knows what to do when you click it. For that, inside the
-          ButtonComponent constructor, we'll use a special object <code class="inlineCode">event_handlers</code> on which we'll call the
+          Talking about handlers: now that we can catch a native click event, we need a handler
+          for it, so the button knows what to do when you click it. For that purpose,, we'll use
+          a special object <code class="inlineCode">event_handlers</code>  inside the
+          ButtonComponent constructor. On it we'll call the
           <code class="inlineCode">.add</code> method and assign the click handler. Notice how we say
           <code class="inlineCode">role: #self</code> - that way the ButtonComponent knows
           that we're defining an event handler for the component itself and not one of its children

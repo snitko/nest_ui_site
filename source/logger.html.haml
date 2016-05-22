@@ -18,7 +18,7 @@ title: "Logger - NestUI"
           of such errors when they happen to our users. For that reason, NestUI introduces its
           own logger - <a href="https://github.com/snitko/dart-logmaster">logmaster</a> - which has
           various <i>report adapters</i>. Depending on which report adapters are activated,
-          exception that are raised can either go the console, or to a file, or a remote server.
+          exceptions that are raised can either go the console, to a file, or to a remote server.
 
         %p It's very simple to use:
 
@@ -28,7 +28,7 @@ title: "Logger - NestUI"
         %p
           And that's it, logging is enabled. Of course, you'll need to implement something in the backend
           that catches those errors at <span class="inlineCode">/report-url</span> and, perhaps, resends them
-          to some other service, such as <a href="https://getsentry.com"></a>Sentry. But it shouldn't be a problem.
+          to some other service, such as <a href="https://getsentry.com">Sentry</a>. But it shouldn't be a problem.
 
         %p
           Each report message comes with a log level and each report adapter has its own report level threshold
@@ -42,6 +42,3 @@ title: "Logger - NestUI"
           For <span class="inlineCode">ConsoleReportAdapter</span> the default log level is 1, while for
           <span class="inlineCode">HttpReportAdapter</span> it's 2, thus this message will be ignored by the latter:
           user will see the message in his browser console, but we, developers, won't be notified.
-
-
-
