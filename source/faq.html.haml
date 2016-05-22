@@ -1,0 +1,50 @@
+---
+title: "FAQ - NestUI"
+---
+
+.mainSection
+
+  .pure-g
+    .pure-u-1.pure-u-lg-4-24
+      .pure-container-left
+        = partial "menu", locals: { current_page: "FAQ" }
+
+    .pure-u-1.pure-u-lg-20-24
+      .pure-container-right.faq
+
+        %h4 Why did you decide to write another web framework?
+        %p
+          As always, scratching my own itch: I felt like everything else out there wasn't quite what I thought it should be.
+          I wanted a framework you could use to build both one page webapps or just add it on top of a standard Rails website
+          to make certain UI things smoother. Of course, for smaller things jQuery is okay, but then the problem is how do you
+          scale that thing you wrote in jQuery? So, I just wanted a framework that does it right from the beginning, but that also
+          doesn't scare you with all the foreign concepts, many different files, classes etc.
+
+        %h4 And why Dart?
+        %p
+          Because my god, Javascript is horrible. It's getting better, but not as good as Dart already is. Additionally,
+          Dart's got a great package manager and the Dartium browser with a VM, so I don't need to compile to js every time
+          I change things and want to check.
+
+        %h4 You introduce a lot of concepts. Isn't it what you were trying to avoid in other frameworks?
+        %p
+          I hardly introduce anything new. Components, Children and Parents, Events and Properties have all been around us for a long time.
+          What those concepts mean inside NestUI doesn't really differ. Roles and Behaviors you can kind of get
+          what they're for straight away without explanation. This framework isn't something I've just hacked - it's been conceived and
+          rewritten some time ago, out of sight.
+
+        %h4 Do I need to learn Dart?
+        %p
+          Yes, please, but it's easy. One day of reading through the manual, one day of writing code and you should be good to go.
+
+        %h4 Is it production ready?
+        %p No. But I'm working on it and am planning to release a very serious project written in NestUI.
+
+        %h4 Why is the compiled js file so big?
+        %p
+          True story, it's currently several megabytes (not minfied), but that's largely because of how dart2js compiles mirrors.
+          Either the Dart team or NestUI will optimize things in the future. I'd rather have something working and worry about
+          optimization later.
+
+        %h4 What's the test coverage?
+        %p Pretty great, check out the <a href="/github.html">source code</a>.

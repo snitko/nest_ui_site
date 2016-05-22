@@ -8,7 +8,7 @@ body { padding: 1em; margin-bottom: 10em; }
 h1 { margin: 1em 0 0.5em 0; font-size: 250%; }
 h2 { margin: 1em 0 0.5em 0; font-size: 200%; }
 h3 { margin: 1em 0 0.5em 0; font-size: 175%; }
-h4 { margin: 1em 0 0.5em 0; font-size: 150%; }
+h4 { margin: 1em 0 0 0; font-size: 150%; }
 h5 { font-size: 95%; font-weight: normal; margin: 0 0 0 0; }
 h6 { font-size: 85%; font-weight: normal; margin: 0 0 0 0; }
 .small { font-size: 80%; line-height: 110%; }
@@ -35,3 +35,7 @@ ul li { margin-bottom: 0.3em; }
 
 ol { margin: 0 0 0 0; padding: 0 0 0 0; }
 ol li { margin: 0 0 1em 0;}
+
+.faq {
+  p { margin-top: 0px; }
+}
