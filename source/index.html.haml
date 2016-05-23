@@ -54,9 +54,9 @@
         %p
           Talking about handlers: now that we can catch a native click event, we need a handler
           for it, so the button knows what to do when you click it. For that purpose,, we'll use
-          a special object <code class="inlineCode">event_handlers</code>  inside the
+          a special object <span class="inlineCode">event_handlers</span>  inside the
           ButtonComponent constructor. On it we'll call the
-          <code class="inlineCode">.add</code> method and assign the click handler. Notice how we say
-          <code class="inlineCode">role: #self</code> - that way the ButtonComponent knows
+          <span class="inlineCode">.add</span> method and assign the click handler. Notice how we say
+          <span class="inlineCode">role: #self</span> - that way the ButtonComponent knows
           that we're defining an event handler for the component itself and not one of its children
           (which is totally possible, btw!).
