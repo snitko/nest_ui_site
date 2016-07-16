@@ -55,6 +55,23 @@ title: "Events - NestUI"
           and added another line, which published a "submit" event. Now form's parent, if he wishes so,
           can catch that event and do something useful with it, although, of course, it doesn't have to.
 
+        %h3 Native events default handlers
+        %p
+          When you click a submit button on a form, a browser usually decides to actually submit the
+          form this button belongs to - this is an example of a native event handler.
+          NestUI automatically prevents that handler from running, so in that case the form won't
+          be submitted. However, that's not always desirable and there's actually a very simple way
+          to NOT prevent default event handlers from being invoked: simply prepend an event name in
+          the <span class="inlineCode">native_events</span> list with <span class="inlineCode">!</span>,
+          like this:
+
+        %pre
+          %code.language-dart= partial "code_partials/events_1_9.dart"
+
+        %p
+          In this example, the button will still disappear as its style is set to
+          <span class="inlineCode">display: none;</span> but the form the button belongs to
+          (if, indeed, it does belong to any form) will also be submitted.
 
         %h3 Events on component parts
 
