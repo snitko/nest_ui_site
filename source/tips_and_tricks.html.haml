@@ -1,0 +1,38 @@
+---
+title: "Examples - NestUI"
+---
+
+.mainSection
+
+  .pure-g
+    .pure-u-1.pure-u-lg-4-24
+      .pure-container-left
+        = partial "menu", locals: { current_page: "Tips & Tricks" }
+
+    .pure-u-1.pure-u-lg-20-24
+      .pure-container-right
+
+        %p
+          This is a collection of various things that I wasn't able to put into
+          any other category.
+
+        %h2 Separating your app into files
+        %p
+          If your app isn't just a small add/remove comment app provided in the
+          #{link_to "examples", "examples"}, you might start to think to separate it
+          into a number of files. For example, I'd put all of my component classes
+          in separate files under <span class="inlineCode">./components</span>.
+
+        %p
+          Because of how Dart works, you'll need to do four things to accomplish this:
+
+        %ol.inner
+          %li Put a <span class="inlineCode">library my_app;</span> at the top of your main file
+          %li Include your files with <span class="inlineCode">part 'components/comment_component.dart'</span>
+          %li On top of each of the included files you should add <span class="inlineCode">part of my_app;</span>
+          %li Let the NestUIApp know what is the library name you came up with for your app.
+
+        %p Take a look at the following code:
+
+        %pre
+          %code.language-dart= partial "code_partials/tips_and_tricks_1_1.dart"

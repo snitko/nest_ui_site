@@ -56,6 +56,7 @@ $menu = {
   "Templates" => "/templates.html",
   "Validations" => "/validations.html",
   "Logger" => "/logger.html",
+  "Tips & Tricks" => "/tips_and_tricks.html",
   "FAQ" => "/faq.html",
   "Examples" => "/examples.html",
   "Github" => "/github.html"
