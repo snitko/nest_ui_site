@@ -89,6 +89,45 @@ title: "Properties - NestUI"
         %p
           Notice how the <span class="inlineCode">disabled="disabled"</span> attribute was added to
           the <span class="inlineCode">&lt;button&gt;</span> element. Of course, the
-          <span class="inlineCode">data-component-attr-name</span> can be added not just to the dom element
-          of the component, but also to any of children nodes of that element - then the component
+          <span class="inlineCode">data-component-attribute-properties</span> can be added not just to the dom element
+          of the component, but also to any of the children nodes of that element - then the component
           will update them upon property change.
+
+        %p
+          The syntax of the <span class="inlineCode">data-component-attribute-properties</span>
+          is the following: <span class="inlineCode">property_1:attribute-name1,property_2:attribute-name2</span>.
+          That is, you can have multiple pairs of properties and attribute names for them separated
+          by commas. And the attribute name may be different from the property name.
+          For instance, consider the following code:
+
+        %pre
+          %code.block.language-markup= html_code_partial "properties_1_8.html"
+
+        %p
+          In this example the property <span class="inlineCode">inactive</span> is tied to
+          the attribute <span class="inlineCode">disabled</span>. And we also have one more
+          property called <span class="inlineCode">button_type</span> (needed for whatever reason!)
+          that is tied to the attribute <span class="inlineCode">data-button-type</span>.
+
+        %h3 Updating properties from DOM
+        %a(name="updating_from_DOM")
+
+        %p
+          While changing properties on the component (in Dart code) automatically updates
+          the corresponding DOM elements/attributes, the reverse cannot be said. You'll need to
+          manually call a <span class="inlineCode">updatePropertiesFromNodes()</span> method in
+          order to read values for the properties from DOM.
+
+        %p
+          This is useful on component initialization, for example: after your page loads, you want
+          the initial values for Component properties to be set not from your code, but from the DOM.
+          A simple way to do this is to call this method in the
+          <a href="/tips_and_tricks.html#after_initialize_hook">after_initialize hook</a>.
+
+        %p
+          You can specify which properties to update by passing a List as an argument, for example:
+          <span class="inlineCode">updatePropertiesFromNodes(['caption', 'button_type']);</span>
+
+        %p.note
+          <b>Note:</b> if the value in the DOM is an empty string, component's property value
+          will be set to <span class="inlineCode">null</span>.

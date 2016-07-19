@@ -36,6 +36,18 @@ title: "Behaviors - NestUI"
           <span class="inlineCode">disable</span>, <span class="inlineCode">enable</span>, <span class="inlineCode">lock</span>,
           and <span class="inlineCode">unlock</span> behaviors.
 
+
+        %p.note
+          <b>Note:</b> the <span class="inlineCode">show()</span> behavior implementation
+          simply sets the <span class="inlineCode">display</span> property of the dom_element
+          to <span class="inlineCode">block</span>. If block is not what you wish,
+          you can either override the method in your own behavior class or add the
+          <span class="inlineCode">data-component-display-value</span> attribute
+          to your dom_element and set its value to whatever your prefer, for example 
+          <span class="inlineCode">inline-block</span>. Then the <span class="inlineCode">show()</span>
+          behavior will use it instead of <span class="inlineCode">block</span>.
+
+        %p
           And you can certainly create your own custom behaviors. To do that, you first need to define a class that extends
           <span class="inlineCode">BaseComponentBehaviors</span> and has the following constructor:
 
