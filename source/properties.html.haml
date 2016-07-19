@@ -130,4 +130,6 @@ title: "Properties - NestUI"
 
         %p.note
           <b>Note:</b> if the value in the DOM is an empty string, component's property value
-          will be set to <span class="inlineCode">null</span>.
+          will be set to <span class="inlineCode">null</span>. For properties stored in text nodes,
+          whitespace will also be stripped and if whitespace is all they contain, the property will be
+          set to <span class="inlineCode">null</span> as well.
