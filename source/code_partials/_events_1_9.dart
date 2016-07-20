@@ -8,7 +8,7 @@ class ButtonComponent extends Component {
     event_handlers.add({
       event: 'click',
       role: #self, 
-      handler: (self, p) => self.dom_element.style.display = 'none'
+      handler: (self,event) => self.dom_element.style.display = 'none'
     });
   
   }

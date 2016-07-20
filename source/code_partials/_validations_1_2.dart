@@ -19,7 +19,7 @@ class CommentFormComponent extends Component {
   };
 
   CommentFormComponent() {
-    event_handlers.add(event: 'click', role: 'submit', handler: (self,p) {
+    event_handlers.add(event: 'click', role: 'submit', handler: (self,event) {
       if(this.validate(deep: true)) { // "deep" means validate child components too.
         // if validations pass - send a request to create new comment here
       }

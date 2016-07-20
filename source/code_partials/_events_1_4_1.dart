@@ -5,7 +5,7 @@ class UserFormComponent extends Component {
     event_handlers.add({
       event: 'click',
       role:  'submit',
-      handler: (self, p) {
+      handler: (self,event) {
         ...;                         // submit request code goes here
         self.publishEvent('submit'); // submitting a custom event
       }

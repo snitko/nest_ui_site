@@ -7,8 +7,8 @@ class FormButtonComponent extends Component {
     event_handlers.addForEvent("click", {
       // In this case reference to "self" has a suffix
       // which is the name of the part receiving the event.
-      "self.submit" : (self, p) => self.publishEvent('submit'),
-      "self.cancel" : (self, p) => self.publishEvent('cancel')
+      "self.submit" : (self,event) => self.publishEvent('submit'),
+      "self.cancel" : (self,event) => self.publishEvent('cancel')
     });
   }
 

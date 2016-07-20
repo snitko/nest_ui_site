@@ -16,7 +16,7 @@ class CommentComponent extends Component {
   final List attribute_names = ["body"];
   List native_events = ["delete.click"];
   CommentComponent() {
-    event_handlers.add(event: 'click', role: 'self.delete', handler: (self,p) => self.remove());
+    event_handlers.add(event: 'click', role: 'self.delete', handler: (self,event) => self.remove());
   }
 }
 
@@ -27,7 +27,7 @@ class CommentFormComponent extends Component {
   };
 
   CommentFormComponent() {
-    event_handlers.add(event: 'click', role: 'submit', handler: (self,p) {
+    event_handlers.add(event: 'click', role: 'submit', handler: (self,event) {
       if(this.validate(deep: true)) {
         var new_comment = new CommentComponent();
         new_comment.body = self.children[0].value;

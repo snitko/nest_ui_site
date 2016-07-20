@@ -18,7 +18,7 @@ class ButtonComponent extends Component {
       // work, please always use 'self', which is guranteed to contain
       // the Component which received the event. This is because under the hood,
       // event_handlers are defined outside of the constructor.
-      handler: (self, p) => self.dom_element.style.display = 'none'
+      handler: (self,event) => self.dom_element.style.display = 'none'
     });
   
   }

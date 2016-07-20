@@ -7,7 +7,7 @@ class ButtonComponent extends Component {
     event_handlers.add({
       event: 'click',
       role:  #self,
-      handler: (self, p) => self.behave('disable')
+      handler: (self,event) => self.behave('disable')
     });
   
   }
