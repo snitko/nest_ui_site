@@ -66,3 +66,65 @@ title: "Behaviors - NestUI"
 
         %pre
           %code.language-dart button1.behave("rockAndRoll");
+
+        %h3 Positioning
+
+        %p
+          <span class="inlineCode">BaseComponentBehaviors</span> class also includes a special object
+          <span class="inlineCode">pos</span> with a number of methods
+          to help you position elements relative to each other. Basically <span class="inlineCode">pos</span>
+          is just a namespace for positioning functions. You pass those functions two elements: the first one should always
+          be an element with <span class="inlineCode">position: absolute;</span> and the second one is an element relative
+          to which you are positioning the first one.
+
+        %p Let's take a look at an example. Suppose I have the following page with two blocks - the blue one being positioned absolutely and the green is a regular block on the page:
+
+        %pre
+          %code.block.language-markup= html_code_partial "behaviors_1_4.html"
+
+        %p Before we write any Dart code, it will look like this:
+        = image_tag "behaviors_positioning_1.png"
+
+        %p Now let's place the blue block on top of the green one, by the left side:
+
+        %pre
+          %code.language-dart= partial "code_partials/behaviors_1_5.dart"
+
+        %p The result will then immediately look like this:
+        = image_tag "behaviors_positioning_2.png"
+
+        %p We can also place the blue block visually inside the green one:
+        %pre
+          %code.language-dart pos.placeByTopLeft(blue, green);
+        %p= image_tag "behaviors_positioning_3.png"
+
+        %p
+          Or put exactly in middle of the green block so that the center of
+          the blue block is directly above the center of the green block:
+        %code.language-dart pos.placeByCenter(blue, green);
+        %p= image_tag "behaviors_positioning_4.png"
+
+
+        %p Here's the whole list of available positioning methods:
+
+        %ul
+          %li <span class="inlineCode">placeByTopLeft(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeByTopLeft(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeByTopRight(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeByBottomLeft(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeByBottomRight(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeAboveTopLeft(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeBelowBottomLeft(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeBelowBottomLeft(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeAboveTopRight(HtmlElement el1, HtmlElement el2)</span>
+          %li <span class="inlineCode">placeBelowBottomRight(HtmlElement el1, HtmlElement el2)</span>
+
+        %p
+          If that doesn't fit your needs of positioning an element, there's
+          also a <span class="inlineCode">placeBy</span> method:
+        %pre
+          %code.language-dart= partial "code_partials/behaviors_1_6.dart"
+
+        %p
+          The <span class="inlineCode">double</span> numerical arguments are not pixels, mind you. They're numbers anywhere from 0 to 1. <span class="inlineCode">top</span> and <span class="inlineCode">left</span> determine
+          the position of the first element (blue) relative to the coordinates of the second one (green) and the <span class="inlineCode">gravity_top</span> and <span class="inlineCode">gravity_left</span> determine where the center of the gravity is (where coordinates start) for the the first (blue) element - that's useful, for example, when you want to put one element on top of the other exactly in the middle.
