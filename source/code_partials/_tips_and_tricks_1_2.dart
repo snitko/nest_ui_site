@@ -1,6 +1,6 @@
 class ButtonComponent extends Component {
 
-  @override after_initialize() {
+  @override afterInitialize() {
     updatePropertiesFromNodes(['caption', 'button_type']);
   }
 
