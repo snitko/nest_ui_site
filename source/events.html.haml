@@ -4,161 +4,157 @@ title: "Events - NestUI"
 
 .mainSection
 
-  .pure-g
-    .pure-u-1.pure-u-lg-4-24
-      .pure-container-left
-        = partial "menu", locals: { current_page: "Events" }
+  = partial "menu", locals: { current_page: "Events" }
 
-    .pure-u-1.pure-u-lg-20-24
-      .pure-container-right
+  .content
 
-        %p
-          Events in NestUI are what they sound like, but actually a little more - when a user clicks
-          a form's submit button, a "click" event is created, which is caught by the button's event handler
-          we can create. Let's look at the code:
+    %p
+      Events in NestUI are what they sound like, but actually a little more - when a user clicks
+      a form's submit button, a "click" event is created, which is caught by the button's event handler
+      we can create. Let's look at the code:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_1.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_1.dart"
 
-        %p
-          Not terribly useful though. You click a button, it disappears. What we need is for the form to send
-          a request (essentially, submit itself). For that, assuming that a particular <span class="inlineCode">ButtonComponent</span> is one of the form's
-          children, we can write the following code:
+    %p
+      Not terribly useful though. You click a button, it disappears. What we need is for the form to send
+      a request (essentially, submit itself). For that, assuming that a particular <span class="inlineCode">ButtonComponent</span> is one of the form's
+      children, we can write the following code:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_2.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_2.dart"
 
-        %p
-          Here, notice the second argument to the handler function, which contains
-          a reference to the dart:html <span class="inlineCode">Event</span> object created by the browser.
-        %p Now we need to make sure our html for the button has the right role set, the "submit" role:
+    %p
+      Here, notice the second argument to the handler function, which contains
+      a reference to the dart:html <span class="inlineCode">Event</span> object created by the browser.
+    %p Now we need to make sure our html for the button has the right role set, the "submit" role:
 
-        %pre
-          %code.block.language-markup= html_code_partial "events_1_3.html"
+    %pre
+      %code.block.language-markup= html_code_partial "events_1_3.html"
 
-        %p
-          As you can see from the example, parents are naturally aware of their children events. Thus,
-          one could say, events propagate one level up, but no further.
+    %p
+      As you can see from the example, parents are naturally aware of their children events. Thus,
+      one could say, events propagate one level up, but no further.
 
 
-        %h3 Native vs. generated events
+    %h3 Native vs. generated events
 
-        %p
-          In NestUI, you actually have two types of events - native and generated. This is for convenience
-          in both coding and understanding. Native events are the ones that the browser generates, while
-          all other events can be generated using NestUI methods. We've already seen an example of a native
-          event above, now let's make our form generate a non-native "submit" event, so that our <span class="inlineCode">PageComponent</span>
-          becomes aware a form was submitted and, maybe, does something about it, like changes page title.
+    %p
+      In NestUI, you actually have two types of events - native and generated. This is for convenience
+      in both coding and understanding. Native events are the ones that the browser generates, while
+      all other events can be generated using NestUI methods. We've already seen an example of a native
+      event above, now let's make our form generate a non-native "submit" event, so that our <span class="inlineCode">PageComponent</span>
+      becomes aware a form was submitted and, maybe, does something about it, like changes page title.
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_4_1.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_4_1.dart"
 
-        %p
-          You can see here that we basically just extended the handler function for the event
-          and added another line, which published a "submit" event. Now form's parent, if he wishes so,
-          can catch that event and do something useful with it, although, of course, it doesn't have to.
+    %p
+      You can see here that we basically just extended the handler function for the event
+      and added another line, which published a "submit" event. Now form's parent, if he wishes so,
+      can catch that event and do something useful with it, although, of course, it doesn't have to.
 
-        %p
-          Higher up the hierarchy in <span class="inlineCode">PageComponent</span>, we'll write the following code to handle the generated event:
+    %p
+      Higher up the hierarchy in <span class="inlineCode">PageComponent</span>, we'll write the following code to handle the generated event:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_4_2.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_4_2.dart"
 
-        %p
-          Notice how we changed the name of the second argument to the handler function
-          to <span class="inlineCode">publisher</span>. This is because it will now contain
-          a reference to the <span class="inlineCode">UserFormComponent</span> object instead
-          of the dart:html <span class="inlineCode">Event</span> object
-          (although we could've named it whatever - publisher/event are just convenient self-describing names).
-        
-        %p
-          This is all reasonable: with non-native events, you're not really interested in the low-level stuff that
-          was generated by the browser as that one is handled by the child components <span class="inlineCode">ButtonComponent</span> and <span class="inlineCode">UserFormComponent</span>! Delegation is the key: <span class="inlineCode">PageComponent</span> doesn't need to know too much.
+    %p
+      Notice how we changed the name of the second argument to the handler function
+      to <span class="inlineCode">publisher</span>. This is because it will now contain
+      a reference to the <span class="inlineCode">UserFormComponent</span> object instead
+      of the dart:html <span class="inlineCode">Event</span> object
+      (although we could've named it whatever - publisher/event are just convenient self-describing names).
+    
+    %p
+      This is all reasonable: with non-native events, you're not really interested in the low-level stuff that
+      was generated by the browser as that one is handled by the child components <span class="inlineCode">ButtonComponent</span> and <span class="inlineCode">UserFormComponent</span>! Delegation is the key: <span class="inlineCode">PageComponent</span> doesn't need to know too much.
 
-        %h3 Native events default handlers
-        %p
-          When you click a submit button on a form, a browser usually decides to actually submit the
-          form this button belongs to - this is an example of a native event handler.
-          NestUI automatically prevents that handler from running, so in that case the form won't
-          be submitted. However, that's not always desirable and there's actually a very simple way
-          to NOT prevent default event handlers from being invoked: simply prepend an event name in
-          the <span class="inlineCode">native_events</span> list with <span class="inlineCode">!</span>,
-          like this:
+    %h3 Native events default handlers
+    %p
+      When you click a submit button on a form, a browser usually decides to actually submit the
+      form this button belongs to - this is an example of a native event handler.
+      NestUI automatically prevents that handler from running, so in that case the form won't
+      be submitted. However, that's not always desirable and there's actually a very simple way
+      to NOT prevent default event handlers from being invoked: simply prepend an event name in
+      the <span class="inlineCode">native_events</span> list with <span class="inlineCode">!</span>,
+      like this:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_9.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_9.dart"
 
-        %p
-          In this example, the button will still disappear as its style is set to
-          <span class="inlineCode">display: none;</span> but the form the button belongs to
-          (if, indeed, it does belong to any form) will also be submitted.
+    %p
+      In this example, the button will still disappear as its style is set to
+      <span class="inlineCode">display: none;</span> but the form the button belongs to
+      (if, indeed, it does belong to any form) will also be submitted.
 
-        %h3 Events on component parts
+    %h3 Events on component parts
 
-        %p
-          Sometimes, your components may be rather complex in terms of DOM elements that construct their visual
-          representation, but it's not always reasonable to break them down into sub-components. By introducing
-          component "parts", we can still catch native events from those parts without creating additional
-          Component classes.
-          
-        %p
-          Let's suppose all forms on our website need to have two buttons "Submit" and "Cancel" - say, we're absolutely
-          certain about that requirement. Perhaps we then need a single component called <span class="inlineCode">FormButtonComponent</span>, which
-          will consist of two parts - the two button elements, each with a distinct name. First, let's look at the
-          html code:
+    %p
+      Sometimes, your components may be rather complex in terms of DOM elements that construct their visual
+      representation, but it's not always reasonable to break them down into sub-components. By introducing
+      component "parts", we can still catch native events from those parts without creating additional
+      Component classes.
+      
+    %p
+      Let's suppose all forms on our website need to have two buttons "Submit" and "Cancel" - say, we're absolutely
+      certain about that requirement. Perhaps we then need a single component called <span class="inlineCode">FormButtonComponent</span>, which
+      will consist of two parts - the two button elements, each with a distinct name. First, let's look at the
+      html code:
 
-        %pre
-          %code.block.language-markup= html_code_partial "events_1_5.html"
+    %pre
+      %code.block.language-markup= html_code_partial "events_1_5.html"
 
-        %p Now we'll need our dart code that handles events from parts of the <span class="inlineCode">FormButtonComponent</span>:
+    %p Now we'll need our dart code that handles events from parts of the <span class="inlineCode">FormButtonComponent</span>:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_6.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_6.dart"
 
-        %p
-          And now a click on either part (html button) will invoke a different handler.
-          Taking it a step further, we can then make <span class="inlineCode">FormButtonComponent</span> publish its own
-          non-native events and let the form decide what to do with them:
+    %p
+      And now a click on either part (html button) will invoke a different handler.
+      Taking it a step further, we can then make <span class="inlineCode">FormButtonComponent</span> publish its own
+      non-native events and let the form decide what to do with them:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_7.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_7.dart"
 
-        %p
-          In this case, "submit" and "cancel" are events generated by the <span class="inlineCode">FormButtonComponent</span>
-          and the <span class="inlineCode">UserFormComponent</span> may just as easily define handlers for those:
+    %p
+      In this case, "submit" and "cancel" are events generated by the <span class="inlineCode">FormButtonComponent</span>
+      and the <span class="inlineCode">UserFormComponent</span> may just as easily define handlers for those:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_8.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_8.dart"
 
-        %h3 Event locks
-        %p
-          Sometimes you want an event to only be handled once and ignore all the subsequent events.
-          For instance, when a user clicks the submit button on a form, you want it to handle the first
-          click, but ignore the subsequent ones, because that could trigger the form to be submitted twice.
+    %h3 Event locks
+    %p
+      Sometimes you want an event to only be handled once and ignore all the subsequent events.
+      For instance, when a user clicks the submit button on a form, you want it to handle the first
+      click, but ignore the subsequent ones, because that could trigger the form to be submitted twice.
 
-        %p Event locks are designed specifically for this purpose. Let's take a look:
+    %p Event locks are designed specifically for this purpose. Let's take a look:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_10.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_10.dart"
 
-        %p
-          Now if the user clicks this button twice, we'll only handle the first click and only one
-          <span class="inlineCode">"Button clicked"</span> message will be printed. This however implies that
-          all buttons behave the same way - that is, ignore all subsequent clicks. Perhaps that's not what you
-          want. Perhaps what you really want is for forms to not be submitted twice. In this case,
-          we could write the following code in the <span class="inlineCode">UserFormComponent</span>:
+    %p
+      Now if the user clicks this button twice, we'll only handle the first click and only one
+      <span class="inlineCode">"Button clicked"</span> message will be printed. This however implies that
+      all buttons behave the same way - that is, ignore all subsequent clicks. Perhaps that's not what you
+      want. Perhaps what you really want is for forms to not be submitted twice. In this case,
+      we could write the following code in the <span class="inlineCode">UserFormComponent</span>:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_11.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_11.dart"
 
-        %p
-          And now you will be able to click buttons as many times as you want in other places,
-          but if this button belongs to a form, the form will ignore all subsequent clicks (of course, we no
-          longer need the <span class="inlineCode">event_lock_for</span> statement in <span class="inlineCode">ButtonComponent</span>).
+    %p
+      And now you will be able to click buttons as many times as you want in other places,
+      but if this button belongs to a form, the form will ignore all subsequent clicks (of course, we no
+      longer need the <span class="inlineCode">event_lock_for</span> statement in <span class="inlineCode">ButtonComponent</span>).
 
-        %p
-          To once again enable the form to start handling click events you can remove the event
-          from the <span class="inlineCode">event_locks</span> list:
+    %p
+      To once again enable the form to start handling click events you can remove the event
+      from the <span class="inlineCode">event_locks</span> list:
 
-        %pre
-          %code.language-dart= partial "code_partials/events_1_12.dart"
+    %pre
+      %code.language-dart= partial "code_partials/events_1_12.dart"

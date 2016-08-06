@@ -4,41 +4,35 @@ title: "Logger - NestUI"
 
 .mainSection
 
-  .pure-g
-    .pure-u-1.pure-u-lg-4-24
-      .pure-container-left
-        = partial "menu", locals: { current_page: "Logger" }
+  = partial "menu", locals: { current_page: "Logger" }
+  .content
+    %p
+      Logging is an important part of a frontend app. Not only do we need to
+      see errors in the browser console, but as developers we also need to be notified
+      of such errors when they happen to our users. For that reason, NestUI introduces its
+      own logger - <a href="https://github.com/snitko/dart-logmaster">logmaster</a> - which has
+      various <i>report adapters</i>. Depending on which report adapters are activated,
+      exceptions that are raised can either go to the console, to a file, or to a remote server.
 
-    .pure-u-1.pure-u-lg-20-24
-      .pure-container-right
+    %p It's very simple to use:
 
-        %p
-          Logging is an important part of a frontend app. Not only do we need to
-          see errors in the browser console, but as developers we also need to be notified
-          of such errors when they happen to our users. For that reason, NestUI introduces its
-          own logger - <a href="https://github.com/snitko/dart-logmaster">logmaster</a> - which has
-          various <i>report adapters</i>. Depending on which report adapters are activated,
-          exceptions that are raised can either go to the console, to a file, or to a remote server.
+    %pre
+      %code.language-dart= partial "code_partials/logger_1_1.dart"
 
-        %p It's very simple to use:
+    %p
+      And that's it, logging is enabled. Of course, you'll need to implement something in the backend
+      that catches those errors at <span class="inlineCode">/report-url</span> and, perhaps, resends them
+      to some other service, such as <a href="https://getsentry.com">Sentry</a>. But it shouldn't be a problem.
 
-        %pre
-          %code.language-dart= partial "code_partials/logger_1_1.dart"
+    %p
+      Each report message comes with a log level and each report adapter has its own report level threshold
+      (you can, of course, change it per report adapter). For example, here we report a message with an
+      INFO log level:
 
-        %p
-          And that's it, logging is enabled. Of course, you'll need to implement something in the backend
-          that catches those errors at <span class="inlineCode">/report-url</span> and, perhaps, resends them
-          to some other service, such as <a href="https://getsentry.com">Sentry</a>. But it shouldn't be a problem.
+    %pre
+      %code.language-dart logger.capture("Comment posted!", log_level: 1);
 
-        %p
-          Each report message comes with a log level and each report adapter has its own report level threshold
-          (you can, of course, change it per report adapter). For example, here we report a message with an
-          INFO log level:
-
-        %pre
-          %code.language-dart logger.capture("Comment posted!", log_level: 1);
-
-        %p
-          For <span class="inlineCode">ConsoleReportAdapter</span> the default log level is 1, while for
-          <span class="inlineCode">HttpReportAdapter</span> it's 2, thus this message will be ignored by the latter:
-          user will see the message in his browser console, but we, developers, won't be notified.
+    %p
+      For <span class="inlineCode">ConsoleReportAdapter</span> the default log level is 1, while for
+      <span class="inlineCode">HttpReportAdapter</span> it's 2, thus this message will be ignored by the latter:
+      user will see the message in his browser console, but we, developers, won't be notified.

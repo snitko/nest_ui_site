@@ -4,132 +4,126 @@ title: "Properties - NestUI"
 
 .mainSection
 
-  .pure-g
-    .pure-u-1.pure-u-lg-4-24
-      .pure-container-left
-        = partial "menu", locals: { current_page: "Properties" }
+  = partial "menu", locals: { current_page: "Properties" }
+  .content
+    %p
+      Component properties are basically just Dart object properties, except that they are also
+      tied to either an HtmlEelement's innerText or its attribute of choice. By "tied" I, of course, mean
+      that whenever we assign a new value to that property, the corresponding node in the dom changes its value - 
+      but not the other way round.
 
-    .pure-u-1.pure-u-lg-20-24
-      .pure-container-right
+    %p
+      To illustrate this, let's define a property called "caption" on a button and then change it.
+    
+    %pre
+      %code.language-dart= partial "code_partials/properties_1_1.dart"
 
-        %p
-          Component properties are basically just Dart object properties, except that they are also
-          tied to either an HtmlEelement's innerText or its attribute of choice. By "tied" I, of course, mean
-          that whenever we assign a new value to that property, the corresponding node in the dom changes its value - 
-          but not the other way round.
+    %p.note
+      <b>Note:</b> the <i>attribute_names</i> name is probably a bad idea, because it is misleading.
+      %br
+      Expect this to be renamed into <i>property_names</i> in the future for uniformity reasons.
 
-        %p
-          To illustrate this, let's define a property called "caption" on a button and then change it.
-        
-        %pre
-          %code.language-dart= partial "code_partials/properties_1_1.dart"
+    %p And the corresponding html code:
+    %pre
+      %code.block.language-markup= html_code_partial "properties_1_2.html"
 
-        %p.note
-          <b>Note:</b> the <i>attribute_names</i> name is probably a bad idea, because it is misleading.
-          %br
-          Expect this to be renamed into <i>property_names</i> in the future for uniformity reasons.
+    %p
+      Currently, the value of the <i>caption</i> property for this component is "Button1".
+      Assuming the component is in a variable called <span class="inlineCode">button1</span>,
+      we can change the caption like this:
 
-        %p And the corresponding html code:
-        %pre
-          %code.block.language-markup= html_code_partial "properties_1_2.html"
+    %pre
+      %code.language-dart button1.caption="Click me";
 
-        %p
-          Currently, the value of the <i>caption</i> property for this component is "Button1".
-          Assuming the component is in a variable called <span class="inlineCode">button1</span>,
-          we can change the caption like this:
+    which will in turn produce the following changes in the html code:
+    %pre
+      %code.block.language-markup= html_code_partial "properties_1_3.html"
 
-        %pre
-          %code.language-dart button1.caption="Click me";
+    %p
+      Sometimes it's convenient to have properties associated with the innerText of html elements,
+      which are children to the component's own dom_element. If we, for example, wanted the caption
+      property to be associated with a <span class="inlineCode">&lt;span&gt;</span> element
+      inside a button, then all we had to do is change our html, while the Dart code would remain
+      the same:
 
-        which will in turn produce the following changes in the html code:
-        %pre
-          %code.block.language-markup= html_code_partial "properties_1_3.html"
+    %pre
+      %code.block.language-markup= html_code_partial "properties_1_4.html"
 
-        %p
-          Sometimes it's convenient to have properties associated with the innerText of html elements,
-          which are children to the component's own dom_element. If we, for example, wanted the caption
-          property to be associated with a <span class="inlineCode">&lt;span&gt;</span> element
-          inside a button, then all we had to do is change our html, while the Dart code would remain
-          the same:
+    %p
+      Notice how the <span class="inlineCode">data-component-property</span> html attribute moved
+      inside the <span class="inlineCode">&lt;span&gt;</span> element.
 
-        %pre
-          %code.block.language-markup= html_code_partial "properties_1_4.html"
+    
+    %h3 Associating properties with html attributes
+    %p
+      Suppose we need to add a property to our button, which regulates whether the button is enabled or disabled.
+      We obviously need this property to change the <i>disabled</i> attribute on the <span class="inlineCode">&lt;button&gt;</span>
+      element. First, let's add this property into the <span class="inlineCode">attribute_names</span> list:
 
-        %p
-          Notice how the <span class="inlineCode">data-component-property</span> html attribute moved
-          inside the <span class="inlineCode">&lt;span&gt;</span> element.
+    %pre
+      %code.language-dart= partial "code_partials/properties_1_5.dart"
 
-        
-        %h3 Associating properties with html attributes
-        %p
-          Suppose we need to add a property to our button, which regulates whether the button is enabled or disabled.
-          We obviously need this property to change the <i>disabled</i> attribute on the <span class="inlineCode">&lt;button&gt;</span>
-          element. First, let's add this property into the <span class="inlineCode">attribute_names</span> list:
+    %p
+      Then, let's change our html code and add a special html attribute to our button, which will connect
+      the <i>disabled</i> property of the Component:
 
-        %pre
-          %code.language-dart= partial "code_partials/properties_1_5.dart"
+    %pre
+      %code.block.language-markup= html_code_partial "properties_1_6.html"
 
-        %p
-          Then, let's change our html code and add a special html attribute to our button, which will connect
-          the <i>disabled</i> property of the Component:
+    %p Now, if we change the property:
 
-        %pre
-          %code.block.language-markup= html_code_partial "properties_1_6.html"
+    %pre
+      %code.language-dart button1.disabled="disabled";
 
-        %p Now, if we change the property:
+    we'll get the following html:
 
-        %pre
-          %code.language-dart button1.disabled="disabled";
+    %pre
+      %code.block.language-markup= html_code_partial "properties_1_7.html"
 
-        we'll get the following html:
+    %p
+      Notice how the <span class="inlineCode">disabled="disabled"</span> attribute was added to
+      the <span class="inlineCode">&lt;button&gt;</span> element. Of course, the
+      <span class="inlineCode">data-component-attribute-properties</span> can be added not just to the dom element
+      of the component, but also to any of the children nodes of that element - then the component
+      will update them upon property change.
 
-        %pre
-          %code.block.language-markup= html_code_partial "properties_1_7.html"
+    %p
+      The syntax of the <span class="inlineCode">data-component-attribute-properties</span>
+      is the following: <span class="inlineCode">property_1:attribute-name1,property_2:attribute-name2</span>.
+      That is, you can have multiple pairs of properties and attribute names for them separated
+      by commas. And the attribute name may be different from the property name.
+      For instance, consider the following code:
 
-        %p
-          Notice how the <span class="inlineCode">disabled="disabled"</span> attribute was added to
-          the <span class="inlineCode">&lt;button&gt;</span> element. Of course, the
-          <span class="inlineCode">data-component-attribute-properties</span> can be added not just to the dom element
-          of the component, but also to any of the children nodes of that element - then the component
-          will update them upon property change.
+    %pre
+      %code.block.language-markup= html_code_partial "properties_1_8.html"
 
-        %p
-          The syntax of the <span class="inlineCode">data-component-attribute-properties</span>
-          is the following: <span class="inlineCode">property_1:attribute-name1,property_2:attribute-name2</span>.
-          That is, you can have multiple pairs of properties and attribute names for them separated
-          by commas. And the attribute name may be different from the property name.
-          For instance, consider the following code:
+    %p
+      In this example the property <span class="inlineCode">inactive</span> is tied to
+      the attribute <span class="inlineCode">disabled</span>. And we also have one more
+      property called <span class="inlineCode">button_type</span> (needed for whatever reason!)
+      that is tied to the attribute <span class="inlineCode">data-button-type</span>.
 
-        %pre
-          %code.block.language-markup= html_code_partial "properties_1_8.html"
+    %h3 Updating properties from DOM
+    %a(name="updating_from_DOM")
 
-        %p
-          In this example the property <span class="inlineCode">inactive</span> is tied to
-          the attribute <span class="inlineCode">disabled</span>. And we also have one more
-          property called <span class="inlineCode">button_type</span> (needed for whatever reason!)
-          that is tied to the attribute <span class="inlineCode">data-button-type</span>.
+    %p
+      While changing properties on the component (in Dart code) automatically updates
+      the corresponding DOM elements/attributes, the reverse cannot be said. You'll need to
+      manually call a <span class="inlineCode">updatePropertiesFromNodes()</span> method in
+      order to read values for the properties from DOM.
 
-        %h3 Updating properties from DOM
-        %a(name="updating_from_DOM")
+    %p
+      This is useful on component initialization, for example: after your page loads, you want
+      the initial values for Component properties to be set not from your code, but from the DOM.
+      A simple way to do this is to call this method in the
+      <a href="/tips_and_tricks.html#after_initialize_hook">afterInitialize hook</a>.
 
-        %p
-          While changing properties on the component (in Dart code) automatically updates
-          the corresponding DOM elements/attributes, the reverse cannot be said. You'll need to
-          manually call a <span class="inlineCode">updatePropertiesFromNodes()</span> method in
-          order to read values for the properties from DOM.
+    %p
+      You can specify which properties to update by passing a List as an argument, for example:
+      <span class="inlineCode">updatePropertiesFromNodes(['caption', 'button_type']);</span>
 
-        %p
-          This is useful on component initialization, for example: after your page loads, you want
-          the initial values for Component properties to be set not from your code, but from the DOM.
-          A simple way to do this is to call this method in the
-          <a href="/tips_and_tricks.html#after_initialize_hook">afterInitialize hook</a>.
-
-        %p
-          You can specify which properties to update by passing a List as an argument, for example:
-          <span class="inlineCode">updatePropertiesFromNodes(['caption', 'button_type']);</span>
-
-        %p.note
-          <b>Note:</b> if the value in the DOM is an empty string, component's property value
-          will be set to <span class="inlineCode">null</span>. For properties stored in text nodes,
-          whitespace will also be stripped and if whitespace is all they contain, the property will be
-          set to <span class="inlineCode">null</span> as well.
+    %p.note
+      <b>Note:</b> if the value in the DOM is an empty string, component's property value
+      will be set to <span class="inlineCode">null</span>. For properties stored in text nodes,
+      whitespace will also be stripped and if whitespace is all they contain, the property will be
+      set to <span class="inlineCode">null</span> as well.

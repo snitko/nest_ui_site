@@ -22,14 +22,19 @@ pre { line-height: 50% !important; }
 code.block { display: block; }
 .inlineCode { background-color: #ddd; padding: 0 0.3em; font-family: Fira Mono; font-size: 75%; white-space: pre; border-radius: 0.3em; display: inline-block; margin: 0 0 0 0; }
 pre { max-width: 800px; }
-.pure-container-left  { padding-right: 1em; }
-.pure-container-right { padding-left: 3em; max-width: 900px; }
 
-.menu {
-  a, a:visited { display: block; margin: 0 0 0.4em 0; padding: 0.5em; color: #175FA1; }
-  a.current { background-color: #eee; color: #333; }
-  a:hover   { text-decoration: none; }
+.mainSection {
+  display: flex;
+  .menu {
+    min-width: 10em;
+    a, a:visited { display: block; margin: 0 0 0.4em 0; padding: 0.5em; color: #175FA1; }
+    a.current { background-color: #eee; color: #333; }
+    a:hover   { text-decoration: none; }
+  }
+  .content { margin-left: 3em; flex-grow: 1; }
 }
+
+
 
 ul li { margin-bottom: 0.3em; }
 

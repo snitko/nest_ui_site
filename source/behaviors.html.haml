@@ -4,127 +4,122 @@ title: "Behaviors - NestUI"
 
 .mainSection
 
-  .pure-g
-    .pure-u-1.pure-u-lg-4-24
-      .pure-container-left
-        = partial "menu", locals: { current_page: "Behaviors" }
+  = partial "menu", locals: { current_page: "Behaviors" }
+  .content
 
-    .pure-u-1.pure-u-lg-20-24
-      .pure-container-right
+    %p
+      Behaviors are special methods that usually manipulate the associated dom elements
+      of components. For example, we might want to hide or disable a button - those are behaviors.
+      To invoke a behavior one must call a <span class="inlineCode">behave()</span> method on a component
+      and pass it a behavior name:
 
-        %p
-          Behaviors are special methods that usually manipulate the associated dom elements
-          of components. For example, we might want to hide or disable a button - those are behaviors.
-          To invoke a behavior one must call a <span class="inlineCode">behave()</span> method on a component
-          and pass it a behavior name:
+    %pre
+      %code.language-dart button1.behave("disable");
+    
+    %p
+      It is quite common to invoke behaviors from within components in response
+      to a certain event that occurred, for example we could disable a button if
+      someone clicks it:
 
-        %pre
-          %code.language-dart button1.behave("disable");
-        
-        %p
-          It is quite common to invoke behaviors from within components in response
-          to a certain event that occurred, for example we could disable a button if
-          someone clicks it:
+    %pre
+      %code.language-dart= partial "code_partials/behaviors_1_1.dart"
 
-        %pre
-          %code.language-dart= partial "code_partials/behaviors_1_1.dart"
-
-        %p
-          There are some behaviors which NestUI defines for all components, others are only available
-          for some (see files in <a href="https://github.com/snitko/nest_ui/tree/master/lib/behaviors">behaviors dir</a>).
-          For example, all components have <span class="inlineCode">hide</span>, <span class="inlineCode">show</span>,
-          <span class="inlineCode">disable</span>, <span class="inlineCode">enable</span>, <span class="inlineCode">lock</span>,
-          and <span class="inlineCode">unlock</span> behaviors.
+    %p
+      There are some behaviors which NestUI defines for all components, others are only available
+      for some (see files in <a href="https://github.com/snitko/nest_ui/tree/master/lib/behaviors">behaviors dir</a>).
+      For example, all components have <span class="inlineCode">hide</span>, <span class="inlineCode">show</span>,
+      <span class="inlineCode">disable</span>, <span class="inlineCode">enable</span>, <span class="inlineCode">lock</span>,
+      and <span class="inlineCode">unlock</span> behaviors.
 
 
-        %p.note
-          <b>Note:</b> the <span class="inlineCode">show()</span> behavior implementation
-          simply sets the <span class="inlineCode">display</span> property of the dom_element
-          to <span class="inlineCode">block</span>. If block is not what you wish,
-          you can either override the method in your own behavior class or add the
-          <span class="inlineCode">data-component-display-value</span> attribute
-          to your dom_element and set its value to whatever your prefer, for example 
-          <span class="inlineCode">inline-block</span>. Then the <span class="inlineCode">show()</span>
-          behavior will use it instead of <span class="inlineCode">block</span>.
+    %p.note
+      <b>Note:</b> the <span class="inlineCode">show()</span> behavior implementation
+      simply sets the <span class="inlineCode">display</span> property of the dom_element
+      to <span class="inlineCode">block</span>. If block is not what you wish,
+      you can either override the method in your own behavior class or add the
+      <span class="inlineCode">data-component-display-value</span> attribute
+      to your dom_element and set its value to whatever your prefer, for example 
+      <span class="inlineCode">inline-block</span>. Then the <span class="inlineCode">show()</span>
+      behavior will use it instead of <span class="inlineCode">block</span>.
 
-        %p
-          And you can certainly create your own custom behaviors. To do that, you first need to define a class that extends
-          <span class="inlineCode">BaseComponentBehaviors</span> and has the following constructor:
+    %p
+      And you can certainly create your own custom behaviors. To do that, you first need to define a class that extends
+      <span class="inlineCode">BaseComponentBehaviors</span> and has the following constructor:
 
-        %pre
-          %code.language-dart= partial "code_partials/behaviors_1_2.dart"
+    %pre
+      %code.language-dart= partial "code_partials/behaviors_1_2.dart"
 
-        %p Finally, add your behavior class to the list of behaviors in your component:
+    %p Finally, add your behavior class to the list of behaviors in your component:
 
-        %pre
-          %code.language-dart= partial "code_partials/behaviors_1_3.dart"
+    %pre
+      %code.language-dart= partial "code_partials/behaviors_1_3.dart"
 
-        %p
-          As you have probably guessed, you can define and add as many behavior classes as you want,
-          combining different behaviors for various components, effectively making Behavior classes modules.
-          Now we can invoke our newly created behavior with:
+    %p
+      As you have probably guessed, you can define and add as many behavior classes as you want,
+      combining different behaviors for various components, effectively making Behavior classes modules.
+      Now we can invoke our newly created behavior with:
 
-        %pre
-          %code.language-dart button1.behave("rockAndRoll");
+    %pre
+      %code.language-dart button1.behave("rockAndRoll");
 
-        %h3 Positioning
+    %h3 Positioning
 
-        %p
-          <span class="inlineCode">BaseComponentBehaviors</span> class also includes a special object
-          <span class="inlineCode">pos</span> with a number of methods
-          to help you position elements relative to each other. Basically <span class="inlineCode">pos</span>
-          is just a namespace for positioning functions. You pass those functions two elements: the first one should always
-          be an element with <span class="inlineCode">position: absolute;</span> and the second one is an element relative
-          to which you are positioning the first one.
+    %p
+      <span class="inlineCode">BaseComponentBehaviors</span> class also includes a special object
+      <span class="inlineCode">pos</span> with a number of methods
+      to help you position elements relative to each other. Basically <span class="inlineCode">pos</span>
+      is just a namespace for positioning functions. You pass those functions two elements: the first one should always
+      be an element with <span class="inlineCode">position: absolute;</span> and the second one is an element relative
+      to which you are positioning the first one.
 
-        %p Let's take a look at an example. Suppose I have the following page with two blocks - the blue one being positioned absolutely and the green is a regular block on the page:
+    %p Let's take a look at an example. Suppose I have the following page with two blocks - the blue one being positioned absolutely and the green is a regular block on the page:
 
-        %pre
-          %code.block.language-markup= html_code_partial "behaviors_1_4.html"
+    %pre
+      %code.block.language-markup= html_code_partial "behaviors_1_4.html"
 
-        %p Before we write any Dart code, it will look like this:
-        = image_tag "behaviors_positioning_1.png"
+    %p Before we write any Dart code, it will look like this:
+    = image_tag "behaviors_positioning_1.png"
 
-        %p Now let's place the blue block on top of the green one, by the left side:
+    %p Now let's place the blue block on top of the green one, by the left side:
 
-        %pre
-          %code.language-dart= partial "code_partials/behaviors_1_5.dart"
+    %pre
+      %code.language-dart= partial "code_partials/behaviors_1_5.dart"
 
-        %p The result will then immediately look like this:
-        = image_tag "behaviors_positioning_2.png"
+    %p The result will then immediately look like this:
+    = image_tag "behaviors_positioning_2.png"
 
-        %p We can also place the blue block visually inside the green one:
-        %pre
-          %code.language-dart pos.placeByTopLeft(blue, green);
-        %p= image_tag "behaviors_positioning_3.png"
+    %p We can also place the blue block visually inside the green one:
+    %pre
+      %code.language-dart pos.placeByTopLeft(blue, green);
+    %p= image_tag "behaviors_positioning_3.png"
 
-        %p
-          Or put exactly in middle of the green block so that the center of
-          the blue block is directly above the center of the green block:
-        %code.language-dart pos.placeByCenter(blue, green);
-        %p= image_tag "behaviors_positioning_4.png"
+    %p
+      Or put exactly in middle of the green block so that the center of
+      the blue block is directly above the center of the green block:
+    %code.language-dart pos.placeByCenter(blue, green);
+    %p= image_tag "behaviors_positioning_4.png"
 
 
-        %p Here's the whole list of available positioning methods:
+    %p Here's the whole list of available positioning methods:
 
-        %ul
-          %li <span class="inlineCode">placeByTopLeft(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeByTopLeft(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeByTopRight(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeByBottomLeft(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeByBottomRight(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeAboveTopLeft(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeBelowBottomLeft(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeBelowBottomLeft(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeAboveTopRight(HtmlElement el1, HtmlElement el2)</span>
-          %li <span class="inlineCode">placeBelowBottomRight(HtmlElement el1, HtmlElement el2)</span>
+    %ul
+      %li <span class="inlineCode">placeByTopLeft(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeByTopLeft(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeByTopRight(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeByBottomLeft(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeByBottomRight(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeAboveTopLeft(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeBelowBottomLeft(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeBelowBottomLeft(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeAboveTopRight(HtmlElement el1, HtmlElement el2)</span>
+      %li <span class="inlineCode">placeBelowBottomRight(HtmlElement el1, HtmlElement el2)</span>
 
-        %p
-          If that doesn't fit your needs of positioning an element, there's
-          also a <span class="inlineCode">placeBy</span> method:
-        %pre
-          %code.language-dart= partial "code_partials/behaviors_1_6.dart"
+    %p
+      If that doesn't fit your needs of positioning an element, there's
+      also a <span class="inlineCode">placeBy</span> method:
+    %pre
+      %code.language-dart= partial "code_partials/behaviors_1_6.dart"
 
-        %p
-          The <span class="inlineCode">double</span> numerical arguments are not pixels, mind you. They're numbers anywhere from 0 to 1. <span class="inlineCode">top</span> and <span class="inlineCode">left</span> determine
-          the position of the first element (blue) relative to the coordinates of the second one (green) and the <span class="inlineCode">gravity_top</span> and <span class="inlineCode">gravity_left</span> determine where the center of the gravity is (where coordinates start) for the the first (blue) element - that's useful, for example, when you want to put one element on top of the other exactly in the middle.
+    %p
+      The <span class="inlineCode">double</span> numerical arguments are not pixels, mind you. They're numbers anywhere from 0 to 1. <span class="inlineCode">top</span> and <span class="inlineCode">left</span> determine
+      the position of the first element (blue) relative to the coordinates of the second one (green) and the <span class="inlineCode">gravity_top</span> and <span class="inlineCode">gravity_left</span> determine where the center of the gravity is (where coordinates start) for the the first (blue) element - that's useful, for example, when you want to put one element on top of the other exactly in the middle.

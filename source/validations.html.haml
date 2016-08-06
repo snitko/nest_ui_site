@@ -4,54 +4,49 @@ title: "Validations - NestUI"
 
 .mainSection
 
-  .pure-g
-    .pure-u-1.pure-u-lg-4-24
-      .pure-container-left
-        = partial "menu", locals: { current_page: "Validations" }
+  = partial "menu", locals: { current_page: "Validations" }
+  .content
 
-    .pure-u-1.pure-u-lg-20-24
-      .pure-container-right
+    %p
+      While frontend validations should never be a substitute for backend validations,
+      we still sometimes need them to make simple checks that would spare us additional
+      requests to the server. NestUI offers a nice set of validations and also a simple way to display
+      validation errors for the form fields that triggered them.
 
-        %p
-          While frontend validations should never be a substitute for backend validations,
-          we still sometimes need them to make simple checks that would spare us additional
-          requests to the server. NestUI offers a nice set of validations and also a simple way to display
-          validation errors for the form fields that triggered them.
+    %p
+      Suppose we have a simple comment form which only has a text field with the comment text and we want to make
+      sure that this field is not null and also that the length of the comment is not less than 30 characters.
+      Let's start with the html:
 
-        %p
-          Suppose we have a simple comment form which only has a text field with the comment text and we want to make
-          sure that this field is not null and also that the length of the comment is not less than 30 characters.
-          Let's start with the html:
+    %pre
+      %code.block.language-markup= html_code_partial "validations_1_1.html"
 
-        %pre
-          %code.block.language-markup= html_code_partial "validations_1_1.html"
+    %p
+      The first thing to notice here is that textarea component is actually more than just textarea,
+      but is actually a div, which wraps <span class="inlineCode">&lt;textarea&gt;</span> and another
+      div where our errors will go. This is intentional, since in our app a text field such as presented here
+      is also responsible for displaying its own validation errors and it's only logical to combine this
+      all into one component.
 
-        %p
-          The first thing to notice here is that textarea component is actually more than just textarea,
-          but is actually a div, which wraps <span class="inlineCode">&lt;textarea&gt;</span> and another
-          div where our errors will go. This is intentional, since in our app a text field such as presented here
-          is also responsible for displaying its own validation errors and it's only logical to combine this
-          all into one component.
+    %p
+      <span class="inlineCode">data-component-part="value_holder"</span> on the <span class="inlineCode">textarea</span>
+      element means that this element's value (or <span class="inlineCode">.val</span> property) is now associated with
+      the <span class="inlineCode">.value</span> property of the component and whenever there are changes on either side,
+      it gets updated on the other. We won't have to write any special code to make this work, we'll only have to extend our
+      <span class="inlineCode">TextAreaComponent</span> with <span class="inlineCode">FormFieldComponent</span> which already
+      contains that functionality.
 
-        %p
-          <span class="inlineCode">data-component-part="value_holder"</span> on the <span class="inlineCode">textarea</span>
-          element means that this element's value (or <span class="inlineCode">.val</span> property) is now associated with
-          the <span class="inlineCode">.value</span> property of the component and whenever there are changes on either side,
-          it gets updated on the other. We won't have to write any special code to make this work, we'll only have to extend our
-          <span class="inlineCode">TextAreaComponent</span> with <span class="inlineCode">FormFieldComponent</span> which already
-          contains that functionality.
+    %p
+      And <span class="inlineCode">data-component-property="validation_errors_summary"</span> obviously connects
+      the stated property of the component with the text property of that HtmlElement. Again, no additional code is required -
+      errors will just appear in it, you'll just need to style this div accordingly (red font color, perhaps!).
 
-        %p
-          And <span class="inlineCode">data-component-property="validation_errors_summary"</span> obviously connects
-          the stated property of the component with the text property of that HtmlElement. Again, no additional code is required -
-          errors will just appear in it, you'll just need to style this div accordingly (red font color, perhaps!).
+    %p Now, we'll write the Dart code that creates and runs validations:
+    %pre
+      %code.language-dart= partial "code_partials/_validations_1_2.dart"
 
-        %p Now, we'll write the Dart code that creates and runs validations:
-        %pre
-          %code.language-dart= partial "code_partials/_validations_1_2.dart"
+    %p
+      If the text field is empty or it is 5 characters long or less, a list of all validation
+      errors will be displayed in the appropriate HtmlElement below the actual <span class="inlineCode">&lt;textarea&gt;</span> field.
 
-        %p
-          If the text field is empty or it is 5 characters long or less, a list of all validation
-          errors will be displayed in the appropriate HtmlElement below the actual <span class="inlineCode">&lt;textarea&gt;</span> field.
-
-        %p For a full list of validation methods, please refer to the README of the <a href="https://github.com/snitko/dart-validatable">validatable package.</a>
+    %p For a full list of validation methods, please refer to the README of the <a href="https://github.com/snitko/dart-validatable">validatable package.</a>
