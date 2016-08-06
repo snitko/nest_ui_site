@@ -8,7 +8,7 @@ class ButtonComponent extends Component {
 
   ButtonComponent() {
   
-    event_handlers.add({
+    event_handlers.add(
       event: 'click',
       role:  #self,
       handler: (self,p) {
@@ -16,7 +16,7 @@ class ButtonComponent extends Component {
         c.text = "New comment";
         self.parent.addChild(c); // self.parent is the root component here
       }
-    });
+    );
   
   }
 

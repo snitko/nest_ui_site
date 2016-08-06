@@ -4,11 +4,11 @@ class ButtonComponent extends Component {
 
   ButtonComponent() {
   
-    event_handlers.add({
+    event_handlers.add(
       event: 'click',
       role:  #self,
       handler: (self,event) => self.behave('disable')
-    });
+    );
   
   }
 

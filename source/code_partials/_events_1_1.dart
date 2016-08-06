@@ -7,7 +7,7 @@ class ButtonComponent extends Component {
   
     // Most of the time event handlers are suppposed to be defined using special object
     // 'event_handlers' in the constructor. Please follow this convention.
-    event_handlers.add({
+    event_handlers.add(
 
       event: 'click',
 
@@ -19,7 +19,7 @@ class ButtonComponent extends Component {
       // the Component which received the event. This is because under the hood,
       // event_handlers are defined outside of the constructor.
       handler: (self,event) => self.dom_element.style.display = 'none'
-    });
+    );
   
   }
 

@@ -5,11 +5,11 @@ class ButtonComponent extends Component {
     // ! before event name means "DO NOT prevent default browser event handler"
     List native_events = ["!click"];
 
-    event_handlers.add({
+    event_handlers.add(
       event: 'click',
       role: #self, 
       handler: (self,event) => self.dom_element.style.display = 'none'
-    });
+    );
   
   }
 

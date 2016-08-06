@@ -6,11 +6,11 @@ class UserFormComponent extends Component {
     // with role 'submitter'
     List event_lock_for = ["submitter.click"];
   
-    event_handlers.add({
+    event_handlers.add(
       event: 'click',
       role:  'submitter',
       handler: (self,publisher) => ... // submit request code goes here
-    });
+    );
   
   }
 
