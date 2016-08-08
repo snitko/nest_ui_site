@@ -1,0 +1,28 @@
+<div
+  data-component-class="SelectComponent"
+  data-component-attribute-properties="disabled:data-disabled, name:data-name"
+  data-name="payment_method"
+>
+  <!-- Actual HTML element storing the value, the ones that will be submitted
+       if use a native browser form submit.
+  -->
+  <input
+    data-component-property="input_value"
+    data-component-attribute-properties="input_value:value"
+    type="hidden"
+    name="payment_method"
+  >
+
+  <div data-component-part="selectbox">
+    <div data-component-property="display_value" class="value">[Select item]</div>
+  </div>
+
+  <div data-component-part="options_container" style="display: none;">
+    <div data-component-part="option" data-option-value="international">international</div>
+    <div data-component-part="option" data-option-value="paypal">paypal</div>
+    <div data-component-part="option" data-option-value="cash">cash</div>
+    <div data-component-part="option" data-option-value="ATM withdrawal">ATM withdrawal</div>
+    <div data-component-part="option" data-option-value="beeline">beeline</div>
+  </div>
+
+</div>

@@ -4,12 +4,21 @@ title: "Components - NestUI"
 
 .mainSection
 
-  = partial "menu", locals: { current_page: "Components" }
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
   .content
 
     %p
       While components are hardly a new idea in web development, we'll need to look at what NestUI means
       by it and how it handles components.
+
+    .note
+      %p
+        NestUI includes a number of standard components most common for webpages, which you might want to use. Some of them are inclded by default,
+        others you'd have to import manually. There's also a <span class="inlineCode">Component</span> class from which all NestUI components inherit
+        and which you'll need to understand in order to create your own non-trivial Components.
+        For documentation on individual components included into NestUI refer the submenu on the left.
+        <b>It is strongly recommended that you read other major parts of this manual first
+        to understand what's going on with components.</b>
 
     %p
       In NestUI a component is an object of class <span class="inlineCode">Component</span> (or one of its descendants). It has
@@ -55,3 +64,21 @@ title: "Components - NestUI"
         the "disable" behavior, which makes it appear disabled and makes it impossible for the user to click it again by accident.
 
     %p Each one of those are discussed in the following sections of this manual.
+
+    %h3 There is no HTML!
+    %p
+      One important aspect to note is that you have to create your own HTML for the components. NestUI components don't generate any HTML - instead
+      NestUI scans the DOM, finds html elements with <span class="inlineCode">data-component-class</span> attributes and creates instances of components
+      based on the value of that attribute.
+
+    %p
+      There is one case when NestUI Component may create a new DOM element - from <a href="">a template</a>. But even then the template
+      itself is already present in the DOM and is simply cloned. There is no HTML embedded into the Dart code and there is no manual creation
+      of html elements with Dart classes such as <span class="inlineCode">DivElement</span>.
+
+    %p
+      For standard components that come with library this manual will provide an example html code. It is to be used as a reference point.
+      A particular Component class may expect certain html elements to be present within the associated dom_element, so that's why those examples
+      come in handy. However, you can most likely rearrange html elements at your own will - the important part is having elements with attributes
+      such as <span class="inlineCode">data-component-part</span> or <span class="inlineCode">data-component-property</span> with particular values present -
+      those will be specified explicitly. Other than that, you're free to style and rearrange as you wish.

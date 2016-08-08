@@ -1,0 +1,69 @@
+---
+title: "FormFieldComponent - Components - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
+  .content
+
+
+    %h2 FormFieldComponent
+    .note Read <a href="#{$nest_ui_docs}/nest_ui/FormFieldComponent-class.html">the documentation for this class.</a>
+
+    %p
+      This is a basic component for form fields, from which most other form field components
+      should inherit.
+
+    %p Basically, an html code example for this component may look like this:
+
+    %pre
+      %code.block.language-markup= html_code_partial "components/form_field_1_1.html"
+
+    %p
+      Not how in this example we tied the <span class="inlineCode">name</span> and <span class="inlineCode">disabled</span> properties to the relevant attributes. And also not a special
+      property called <span class="inlineCode">value_holder</span> - it's introduced specifically for
+      form components. It basically allows you to have an html where an actual form element,
+      for example <span class="inlineCode">input</span>, is wrapped in a bunch of divs (as in out example), but it stills gets its value set correctly:
+
+    %pre
+      %code.block.language-markup= html_code_partial "components/form_field_1_2.html"
+
+    %p Now, if we want to change the value, all we need to is this:
+
+    %pre
+      %code.language-dart= partial "code_partials/components/form_field_1_3.dart"
+
+    %p and the corresponding HTML will become this (notice the <i>value</i> attribute change):
+
+    %pre
+      %code.block.language-markup= html_code_partial "components/form_field_1_4.html"
+
+
+    %h4 Validations
+    %p
+      Calling <span class="inlineCode">validate()</span> methods writes all validation errors into
+      the <span class="inlineCode">validation_errors_summary</span> property and displays it
+      in the <span class="inlineCode">data-component-property="validation_errors_summary"</span> html
+      element.
+
+    %p
+      For that, you may want to use another HtmlElement inside the associated dom_element with the <span class="inlineCode">data-component-property="validation_errors_summary"</span> attribute - it's used to display validation errors (if validations are defined and detected), this if you don't have validations
+      defined for the component and don't expect to add any, you can skip it.
+
+    %pre
+      %code.block.language-markup= html_code_partial "components/form_field_1_5.html"
+
+    %p
+      Notice how we set <span class="inlineCode">display: none;</span>. This is because we don't
+      want to show an empty block when there are no validation errors. Instead, when we validate
+      and errors are discovered, the <span class="inlineCode">validate()</span> method will
+      invoke a behavior, which will display that block.
+
+    %h4 Resetting
+    %p
+      You can reset the value (make it null) but calling <span class="inlineCode">.reset()</span> method.
+      This is extremely useful if you have a parent component which needs to clear the form. It
+      can then call <span class="inlineCode">.applyToChildren('reset')</span> and all your
+      fields will clear.
+

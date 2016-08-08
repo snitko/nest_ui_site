@@ -1,0 +1,72 @@
+---
+title: "base Component class - Components - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
+  .content
+
+
+    %h2 base Component class
+    .note Read <a href="#{$nest_ui_docs}/nest_ui/Component-class.html">the documentation for this class.</a>
+    %p
+      All components in NestUI inherit from one class <span class="inlineCode">Component</span> which includes
+      lots of useful methods for manipulating dom, handling of child and parent components, events and validations. While those things
+      are also discussed separately in the relevant sections, it's also important to give a brief description of
+      public and some private methods available to each component. The code itself has lots of comments for each method,
+      but hopefully this section will explain some of the things on a higher level. If you still crave for more info
+      after reading it, you can always refer to the documentation or go read the comments and the source code itself.
+
+    %h3 Initialization
+    %p
+      There are basically two ways you can create an instance of a new component:
+      %ol.inner
+        %li
+          Automatically - this happens when another component runs an <span class="inlineCode">initChildComponent()</span> method
+          and scans its innerHtml for elements with <span class="inlineCode">data-component-class</span> attributes. When it finds such
+          dom element, it creates an instance of a class that's specified as a value for this attribute and then calls <span class="inlineCode">initChildComponents()</span>
+          on it too and so on.
+
+        %li
+          Manually by calling <span class="inlineCode">new Component()</span>. This method will use a <a href="/templates.html">template</a> to
+          assign a <span class="inlineCode">dom_element</span> property, but if it finds no template in the DOM, the <span class="inlineCode">dom_element</span> property
+          would remain null. Additionally, no <span class="inlineCode">afterInitialize()</span> callback is called.
+
+    %h3 Creating components from DOM
+    %p
+      Let us now take a closer look at what happens in the first case. Here are the things that happen under the hood when
+      a new Component is created:
+
+      %ol.inner
+        %li
+          Validations are initialized
+        %li
+          Assigns a template DOM element if one is present in the dom: the one with <span class="inlineCode">data-component-template</span> attribute with a value
+          matching component class name.
+        %li
+          The associated HtmlElement is assigned to the <span class="inlineCode">dom_element</span> property
+        %li
+          The element is added into the <span class="inlineCode">children</span> List of its parent and the
+          parent Component is referenced through the <span class="inlineCode">.parent</span> property.
+        %li
+          <span class="inlineCode">.afterInitialize()</span> hook is run.
+          %ul
+            %li
+              By default, the only thing <span class="inlineCode">.afterInitialize()</span> does is initialize <a href="/behaviors.html">behaviors</a>.
+              You can redefine this method in the descendant classes you create, but don't forget to call <span class="inlineCode">super</span>!
+        %li
+          Scans for elements with <span class="inlineCode">data-component-class</span> attributes, creates components out of them
+          and repeats this list for each child component.
+
+    %h3 Creating components manually
+    %p
+      Manual creation skips almost all of that, except for (1) and (2). Which pretty much means you'd need to at least call <span class="inlineCode">.initChildComponents()</span>
+      and <span class="inlineCode">.afterInitialize()</span> manually. The reason for that being that we can't really assign dom_element until after the initialization process is complete
+      and we also really have no idea what this component is created for, so no extra action is taken.
+
+    %p
+      Manual creation is useful when you want to dynamically add component to the DOM. For instance, if someone types in a comment and you want to
+      add that comment onto the page, you'd create a new instance of a <span class="inlineCode">CommentComponent</span>, assign text to it and
+      add it to the parent component, which might be called something like <span class="inlineCode">CommentContainerComponent</span>.
+      See <a href="children-and-parents.html#adding_components_dynamically">adding components dynamically</a>

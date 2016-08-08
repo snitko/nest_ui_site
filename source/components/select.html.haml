@@ -1,0 +1,58 @@
+---
+title: "SelectComponent - Components - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
+  .content
+
+    %h2 SelectComponent
+    .note Read <a href="#{$nest_ui_docs}/nest_ui/SelectComponent-class.html">the documentation for this class.</a>
+
+    %p
+      While technically it's a form field this class inherits directly from <span class="inlineCode">Component</span> and implements classic <span class="inlineCode">&lt;select&gt;</span> tag functionality.
+
+    %p
+      The decision to implement this component in NestUI instead of using native browser one was
+      made to due to two factors:
+
+      %ul
+        %li
+          Native <span class="inlineCode">&lt;select&gt;</span> is notoriously hard to style
+        %li
+          Some selects need additional functionality whic NestUI would allow to add by extending the <span class="inlineCode">SelectComponent</span> class.
+    
+    %p
+      Basically, what this <span class="inlineCode">SelectComponent</span> does is it emulates
+      native browser experience for <span class="inlineCode">&lt;select&gt;</span> tags including
+      the following:
+
+      %ul
+        %li Opens/closes on Enter/Space
+        %li Closes on Esc
+        %li Closes when clicked outside of it
+        %li Is navigatable with arrow keys, both when opened and closed
+        %li Is searchable by typing in the first few characters
+
+    %p
+      To use this component, you'll first need to include it in your NestUI app
+      manually. It was reasoned, that because this component is relatively big in size,
+      we might just leave it out of default NestUI provided components. Here's how you plug it in:
+
+    %pre
+      %code.language-dart= partial "code_partials/components/select_1_1.dart"
+
+    %p To use it, you'll need the following markup:
+
+    %pre
+      %code.block.language-markup= html_code_partial "components/select_1_2.html"
+
+    %p
+      If you want your select to have a default value when the page loads simply assign it
+      using the input's value attribute, like this:
+
+    %pre
+      %code.block.language-markup= html_code_partial "components/select_1_3.html"
+
+    %p You might also want to look into the <a href="#{$nest_ui_docs}/nest_ui/SelectComponentBehaviors-class.html">documentation for the SelectComponentBehaviors class</a> which provides such important behaviors as <span class="inlineCode">.open()</span>, <span class="inlineCode">.close()</span>, <span class="inlineCode">.toggle()</span>, <span class="inlineCode">.enable()</span> and <span class="inlineCode">disable()</span>.

@@ -1,3 +1,7 @@
 .menu
   - $menu.each do |k,v|
-    = link_to k, v, class: ('current' if current_page == k)
+    .item{class: ('current' if current_page == k)}
+      = link_to k, v
+      - if defined?(submenu) && current_page == k
+        .submenu
+          = partial "_submenus/#{submenu[0]}", locals: { current: submenu[1] } 

@@ -1,0 +1,32 @@
+---
+title: "RootComponent - Components - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
+  .content
+
+
+    %h2 RootComponent
+    .note Read <a href="#{$nest_ui_docs}/nest_ui/RootComponent-class.html">the documentation for this class.</a>
+
+    %p
+      This component is created automatically on the intialization of a NestUI app and is assigned <span class="inlineCode">&lt;body&gt;</span>
+      as its associated <span class="inlineCode">dom_element</span>.
+
+    %p
+      A number of features are planned for the Root component, however currently the only important functionality it has
+      is to catch <span class="inlineCode">click</span> events and notify ALL of the child components of this event.
+      
+    %p
+      The use case for this would for example be a situation when a user first clicks a select box,
+      which opens with a list of options. Naturally, clicking on any other place on the page should close this selectbox. But for it
+      to know it has to close it needs to be notified of such event happening outside of its dom_element. For that,
+      a <span class="inlineCode">externalClickCallback()</span> is used - if this method is defined on a component
+      it gets invoked every time someone clicks anywhere on the page, <b>except when the click's target is the said component</b>.
+
+    %p Thus, we can write something like this in out custom component class:
+
+    %pre
+      %code.block.language-dart= partial "code_partials/components/root_1_1.dart"

@@ -62,6 +62,13 @@ title: "Behaviors - NestUI"
     %pre
       %code.language-dart button1.behave("rockAndRoll");
 
+    %h3 Do not modify components
+    %p
+      To reduce coupling, behaviors should only read component properties and use its methods,
+      but they should not be modifying the component by changing its state (through properties).
+      If you find yourself writing a behavior class that does that, perhaps it's time to reassess
+      whether what you're doing is a good idea.
+
     %h3 Positioning
 
     %p

@@ -1,0 +1,31 @@
+---
+title: "NumericFormFieldComponent - Components - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
+  .content
+
+
+    %h2 NumericFormFieldComponent
+    .note Read <a href="#{$nest_ui_docs}/nest_ui/NumericFormFieldComponent-class.html">the documentation for this class.</a>
+
+    %p
+      This component inherits from <a href="form_field.html">FormFieldComponent</a>, so everything
+      that applies to its parent class applies to this component too. The only additional
+      piece of functionality is that it isn't allowed to change the <span class="inlineCode">value</span> property so that it includes non-digits.
+
+    %p
+      For instance, if a user tries to type a non-digit character the property will immediately
+      revert to its previous value. For user, this would mean that he will see the typed
+      character for a brief moment and then will see it being erased.
+
+    %p
+      To implement this behavior, <span class="inlineCode">NumericFormFieldComponent</span> redefines the <span class="inlineCode">value</span> setter and also adds a new event handler for <span class="inlineCode">keypup</span> event. This is a little different from
+      <span class="inlineCode">FormFieldComponent</span> which only handles the native
+      <span class="inlineCode">change</span> event. Unfortunately,
+      the <span class="inlineCode">change</span> event is only invoked when the field loses
+      focus, which isn't good enough. Thus, we have an additional
+      <span class="inlineCode">keyup</span> handler which forces the update of the component's
+      <span class="inlineCode">value</span> property.

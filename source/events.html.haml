@@ -158,3 +158,20 @@ title: "Events - NestUI"
 
     %pre
       %code.language-dart= partial "code_partials/events_1_12.dart"
+
+    %p
+      You can also set event locks manually using either
+      <span class="inlineCode">addEventLock()</span> method or <span class="inlineCode">event_locks</span>
+      property directly. The difference is that the first one will additionally check whether the
+      property for which the lock is being added is in the <span class="inlineCode">event_lock_for</span>
+      list - and if not, <b>the lock won't be added</b>. If you want to add the lock anyway, you
+      can just use <span class="inlineCode">event_locks</span> property and its
+      <span class="inlineCode">.add</span> method (because it's a List!). Let's see an example:
+
+    %pre
+      %code.language-dart= partial "code_partials/events_1_13.dart"
+
+    %p
+      The last statement demonstrates how we can lock all events instead of listing each event name
+      specifically. Can sometimes be useful when we want to completely lock the component from interacting
+      with the outer world.

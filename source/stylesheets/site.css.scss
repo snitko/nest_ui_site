@@ -7,7 +7,7 @@ body { padding: 1em; margin-bottom: 10em; }
 
 h1 { margin: 1em 0 0.5em 0; font-size: 250%; }
 h2 { margin: 1em 0 0.5em 0; font-size: 200%; }
-h3 { margin: 1em 0 0.5em 0; font-size: 175%; }
+h3 { margin: 1em 0 0.5em 0; font-size: 140%; }
 h4 { margin: 1em 0 0 0; font-size: 150%; }
 h5 { font-size: 95%; font-weight: normal; margin: 0 0 0 0; }
 h6 { font-size: 85%; font-weight: normal; margin: 0 0 0 0; }
@@ -27,11 +27,15 @@ pre { max-width: 800px; }
   display: flex;
   .menu {
     min-width: 10em;
-    a, a:visited { display: block; margin: 0 0 0.4em 0; padding: 0.5em; color: #175FA1; }
-    a.current { background-color: #eee; color: #333; }
-    a:hover   { text-decoration: none; }
+    .item {
+      margin: 0 0 0.4em 0; padding: 0.5em; 
+      &.current { background-color: #eee; a, a:visited { color: #333; }}
+      a, a:visited { color: #175FA1; text-decoration: none; }
+      a:hover { text-decoration: none; }
+      .submenu, &.current .submenu { font-size: 80%; margin-top: 1em; margin-left: 1em; a, a:visited { display: block; margin: 0.3em 0; color: #175FA1; }}
+    }
   }
-  .content { margin-left: 3em; flex-grow: 1; }
+  .content { margin-left: 3em; flex-grow: 1; font-size: 120%; p, ul { line-height: 150%; } }
 }
 
 

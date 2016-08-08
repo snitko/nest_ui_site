@@ -44,6 +44,8 @@ helpers do
   end
 end
 
+$nest_ui_docs = "http://nestui-docs.romansnitko.com"
+
 $menu = {
   "Overview" => "/",
   "Installation" => "/installation.html",
@@ -59,5 +61,7 @@ $menu = {
   "Tips & Tricks" => "/tips_and_tricks.html",
   "FAQ" => "/faq.html",
   "Examples" => "/examples.html",
-  "Github" => "/github.html"
+  "Github" => "/github.html",
+  "Docs" => "#{$nest_ui_docs}/nest_ui/nest_ui-library.html"
 }
+
