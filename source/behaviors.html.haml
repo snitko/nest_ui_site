@@ -62,6 +62,19 @@ title: "Behaviors - NestUI"
     %pre
       %code.language-dart button1.behave("rockAndRoll");
 
+    %p
+      If you happen to have the same method in some of the behavior classes you've added to the behaviors list,
+      then the most recent class in which this method is found will be used. In that sense, it works almost like inheritance.
+      For example, suppose you have added the following behavior classes:
+
+    %pre
+      %code.language-dart= partial "code_partials/behaviors_1_3_2.dart"
+
+    %p
+      Let's say only <span class="inlineCode">BehaviorsOne</span> and <span class="inlineCode">BehaviorsThree</span>
+      have a <span class="inlineCode">sayHello()</span> behavior you're about to invoke. In this case, <span class="inlineCode">BehaviorsThree</span>'s
+      <span class="inlineCode">sayHello()</span> method will be invoked.
+
     %h3 Do not modify components
     %p
       To reduce coupling, behaviors should only read component properties and use its methods,
