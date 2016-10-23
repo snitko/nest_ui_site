@@ -21,6 +21,8 @@ title: "NumericFormFieldComponent - Components - NestUI"
       revert to its previous value. For user, this would mean that he will see the typed
       character for a brief moment and then will see it being erased.
 
+    %p It is also possible to type a period (.) because values in the Numeric field may be of type float, rather than integer.
+
     %p
       To implement this behavior, <span class="inlineCode">NumericFormFieldComponent</span> redefines the <span class="inlineCode">value</span> setter and also adds a new event handler for <span class="inlineCode">keypup</span> event. This is a little different from
       <span class="inlineCode">FormFieldComponent</span> which only handles the native
@@ -29,3 +31,10 @@ title: "NumericFormFieldComponent - Components - NestUI"
       focus, which isn't good enough. Thus, we have an additional
       <span class="inlineCode">keyup</span> handler which forces the update of the component's
       <span class="inlineCode">value</span> property.
+
+    %h4 max_length property
+    %p
+      This property defines how many digits (counting the possible period (.)) can a user enter
+      into the field. This property doesn't affect the maximum number, but simply the length of
+      the field. To verify the maximum/minimum number, use <a href="/validations.html">validations</a> on the parent component.
+
