@@ -34,6 +34,7 @@ title: "SelectComponent - Components - NestUI"
         %li Closes when clicked outside of it
         %li Is navigatable with arrow keys, both when opened and closed
         %li Is searchable by typing in the first few characters
+        %li Fetches options from a remote server
 
     %p
       To use this component, you'll first need to include it in your NestUI app
@@ -55,4 +56,28 @@ title: "SelectComponent - Components - NestUI"
     %pre
       %code.block.language-markup= html_code_partial "components/select_1_3.html"
 
-    %p You might also want to look into the <a href="#{$nest_ui_docs}/nest_ui/SelectComponentBehaviors-class.html">documentation for the SelectComponentBehaviors class</a> which provides such important behaviors as <span class="inlineCode">.open()</span>, <span class="inlineCode">.close()</span>, <span class="inlineCode">.toggle()</span>, <span class="inlineCode">.enable()</span> and <span class="inlineCode">disable()</span>.
+
+    %h4 Fetching options from a remote server
+
+    %p
+      <span class="inlineCode">SelectComponent</span> has the ability to dynamically fetch options from a remote server. The url
+      from wich to fetch those options is specified in the <span class="inlineCode">fetch_url</span> property. Additionally, a number of params
+      may be passed after this url. The params are stored separately but are attached to the url when the request is made. This is done for
+      convenience, so it's easier to update those params independently. For example suppose we want to make the following request to fetch
+      the options for the <span class="inlineCode">SelectComponent</span>: <span class="inlineCode">/cities.json?country=Chile</span>.
+
+    %p
+      To do that, you'll need to first call the <span class="inlineCode">#updateFetchUrlParams()</span> method and pass it the Map of params
+      you want to update (params not mentioned are not removed, if you want them removed, explicitly pass <span class="inlineCode">null</span>).
+      Then call the <span class="inlineCode">#fetchOptions()</span> method, which will actually make a request and update the options in the component.
+
+    %pre
+      %code.language-dart= partial "code_partials/components/select_1_4.dart"
+
+    %p
+      It's important enough to note, that <span class="inlineCode">SelectComponentBehaviors</span> displays an ajax indicator
+      while fetching options if an <span class="inlineCode">.ajaxIndicator</span> element exists inside your <span class="inlineCode">SelectComponent#dom_element</span>.
+      The styling and positioning of the ajax indicator is, as always, entirely up to your css code.
+
+    %h3 Behaviors
+    %p For behaviors, you might want to look into the <a href="#{$nest_ui_docs}/nest_ui/SelectComponentBehaviors-class.html">documentation for the SelectComponentBehaviors class</a> which provides such important behaviors as <span class="inlineCode">.open()</span>, <span class="inlineCode">.close()</span>, <span class="inlineCode">.toggle()</span>, <span class="inlineCode">.enable()</span> and <span class="inlineCode">disable()</span>.
