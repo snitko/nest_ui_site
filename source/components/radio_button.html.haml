@@ -1,0 +1,39 @@
+---
+title: "RadioButtonComponent - Components - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
+  .content
+
+
+    %h2 RadioButtonComponent
+    .note Read <a href="#{$nest_ui_docs}/nest_ui/RadioButtonComponent-class.html">the documentation for this class.</a>
+
+    %p
+      This component is pretty straightforward. It has a <span class="inlineCode">change</span> event
+      which is invoked whenever user clicks the radio button or otherwise changes its value.
+
+    %p
+      There's also an <span class="inlineCode">#options</span> property (a Map) which contains
+      key/value pairs for the options. It is filled upon page load with values from the
+      corresponding <span class="inlineCode">&lt;radio&gt;</span> DOM element. Currently changing this
+      property doesn't correspond to DOM changes and there's no way to dynamically change
+      the radio element.
+
+    %h4 selectOptionFromValue()
+    %p
+      This method selects the radio button (makes it checked visually in the DOM) based on the #value
+      of the instance. If an option with such value doesn't exist, throws an error.
+
+
+    %h4 setValueFromOptions(HtmlElement option_el)
+    %p
+      This method is used as a handler for the click event, when we need to set
+      the <span class="inlineCode">#value</span> of the current RadioButtonComponent instance.
+      You probably won't need to use it anywhere else at this point. It accepts an argument
+      which should be an <span class="inlineCode">&lt;option&gt;</span> HtmlElement and
+      if this <span class="inlineCode">&lt;option&gt;</span> is checked, assigns the
+      corresponding value to the <span class="inlineCode">#value</span> property of
+      the instance.

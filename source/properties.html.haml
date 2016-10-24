@@ -127,3 +127,29 @@ title: "Properties - NestUI"
       will be set to <span class="inlineCode">null</span>. For properties stored in text nodes,
       whitespace will also be stripped and if whitespace is all they contain, the property will be
       set to <span class="inlineCode">null</span> as well.
+
+
+    %h3 Default values
+    %p
+      Sometimes it's important to be able to set default values for properties
+      right inside the Component's class. To do that, simply define an instance variable
+      <span class="inlineCode">Map default_attribute_values</span> and assign it a Map
+      where keys are property names and values are the default values for those properties:
+
+    %pre
+      %code.language-dart= partial "code_partials/properties_1_9.dart"
+
+    %p
+      The assignment of default values takes place in
+      <span class="inlineCode">Component#afterInitialize()</span> and, obviously, it only
+      assign the default values if the current property value is nil. If however, a value
+      was read from DOM (some Components make use of <span class="inlineCode">updatePropertiesFromNodes()</span>), then the default
+      value won't be assigned.
+      
+    %p
+      Be mindful of when you call <span class="inlineCode">updatePropertiesFromNodes()</span>.
+      Normally, assignment of default values doesn't instantly overwrite the corresponding
+      places in DOM (a callback on the property change isn't invoked), so even if default
+      value is assigned to the Component's instance,
+      invoking <span class="inlineCode">updatePropertiesFromNodes()</span> would still
+      overwrite this default value with the value from the DOM (if present, of course).
