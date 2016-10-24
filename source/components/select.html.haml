@@ -57,6 +57,44 @@ title: "SelectComponent - Components - NestUI"
       %code.block.language-markup= html_code_partial "components/select_1_3.html"
 
 
+    %h4 input_value vs display_value
+    %p
+      There are two important properties of <span class="inlineCode">SelectComponent</span>:
+      <span class="inlineCode">#input_value</span> determines what will be the value of the
+      input field when it is sent to the server via a form submit, while <span class="inlineCode">#display_value</span>
+      is what the user sees. For instance, while the user may select "Chile" in the list of countries,
+      the <span class="inlineCode">SelectComponent#input_value</span> will be set to "123".
+
+    %p
+      There's a catch in how those are set upon page load. If for some reason, the <span class="inlineCode">#display_value</span> corresponding
+      HTML element value is set, then the same value is assigned to <span class="inlineCode">#input_value</span>:
+
+    %pre
+      %code.language-dart= partial "code_partials/components/select_1_5.dart"
+
+    %p
+      This may look counter intuitive, but in reality you almost never want to set your <span class="inlineCode">#display_value</span> through DOM. What
+      you really want to do is to set the <span class="inlineCode">#display_value</span> by reading an <span class="inlineCode">#input_value</span>
+      from DOM, then assign <span class="inlineCode">#display_value</span> that corresponds to it:
+
+    %pre
+      %code.language-dart= partial "code_partials/components/select_1_6.dart"
+
+    %p
+      For this to work as described, you obviously need to have a list of options in the DOM
+      (as in the example at the top of this page) that lists all options and their corresponding values.
+      If there is a country "Chile" with value "123", then <span class="inlineCode">#display_value</span>
+      will be assigned correctly.
+
+    %h4 Disabling the component
+    %p
+      The <span class="inlineCode">#disabled</span> property if set to true makes the DOM element
+      unresponsive to any user input and resets the <span class="inlineCode">#input_value</span> to null.
+      This property may be set both through the setter and also in the HTML by adding the
+      <span class="inlineCode">data-disabled="true"</span> to the dom element tied to the component.
+
+
+
     %h4 Fetching options from a remote server
 
     %p
