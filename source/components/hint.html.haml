@@ -1,0 +1,86 @@
+---
+title: "HintComponent - Components - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
+  .content
+
+    %h2 HintComponent
+    .note Read <a href="#{$nest_ui_docs}/nest_ui/HintComponent-class.html">the documentation for this class.</a>
+
+    %p
+      The purpose of this component is rather simple - display popup hints over other elements on the page whenever
+      an event happens to this element: user clicks the element or hovers over it or something else. This component is
+      quite flexible in what it can do, so there are a number of properties that configure its behavior.
+
+    %p Here's a possible HTML code for the component:
+    %pre
+      %code.block.language-markup= html_code_partial "components/hint_1_1.html"
+
+    %p
+      The important feature of HintComponent is that when displayed, it will appear on the best possible side of the
+      anchor element, where there's enough space. For example, if there isn't enough space on the right, the hint
+      will popup to the left of the anchor.
+
+    %h4 Anchor
+    %p
+      An anchor is an element in DOM or another component to which events the hint will be listening to. Normally,
+      you'd want to specify value for the <span class="inlineCode">#anchor</span> property in a corresponding attribute to the hint's <span class="inlineCode">dom_element</span>.
+      For example:
+
+    %pre
+      %code.block.language-markup= html_code_partial "components/hint_1_2.html"
+
+    %p
+      In this case, we're telling the hint that it should "attach" itself to one of the children of its parent component
+      that has the role "button". Notice, I'm saying, <i>one of the children of its <b>parent component</b></i>. What this means is that
+      the hint should always be a sibling (in terms of component hierarchy, not DOM hierarchy) to its anchor.
+
+    %p
+      It is possible to specify anchors not only by roles, but also by other distinctive characteristics:
+    %ul
+      %li By property name: the prefix is <span class="inlineCode">property:</span>. Example: <span class="inlineCode">data-anchor="property:caption"</span>
+      %li By part name: the prefix is <span class="inlineCode">part:</span>. Example: <span class="inlineCode">data-anchor="part:input_value"</span>
+      %li By DOM element id: then the prefix is ommited Example: <span class="inlineCode">data-anchor="submit_form_button"</span>
+      %li When specifying a <i>role</i>, you can also specify this role component's part: <span class="inlineCode">data-anchor="role:button:caption"</span>
+
+    %h4 show_events / force_show_events
+    %p
+      These two properties specify on which anchor events the hint appears. The <span class="inlineCode">show_events</span>
+      only works if the <span class="inlineCode">display_limit</span> isn't reached or if the hint isn't permanently closed
+      (<i>never_show_again</i> flag is set). The <span class="inlineCode">force_show_events</span> events will force the hint
+      to appear regardless of the limitations mentioned above. For example:
+
+    %pre
+      %code.block.language-markup= html_code_partial "components/hint_1_3.html"
+
+    %p
+      In this case, the <i>mouseover</i> works only until the hint is show 5 times. After that,
+      only a <i>click</i> on the anchor can bring the hint up.
+
+    %h4 autoshow_delay / autohide_delay
+    %p
+      These two properties are rather self descriptive. Their value is time in seconds. By default, they're both
+      <i>null</i> so hints are not show unless a specified event occurs on an anchor and they don't hide unless the user
+      explicitly closes them by clicking on the close button.
+
+    %h4 display_limit
+    %p
+      You don't want to annoy your users by showing them hints every time they visit the page and, for example, happen
+      to mouseover the anchor. In that case, you'll need set the <span class="inlineCode">display_limit</span>
+      property to something sensible. I usually set it to <i>1</i>, so that the first time a user
+      hovers over the anchor, the hint is displayed, but after that first time he'd have to actually
+      click on the anchor to display the hint (and the <i>click</i> event is added into the <span class="inlineCode">data-force-show-events</span> attribute).
+
+    %p
+      The number of times a hint was displayed is saved in a cookie, which needs to uniquely identify a particular HintComponent.
+      For this reason it is important to have a <span class="inlineCode">#hint_id</span> (<span class="inlineCode">data-hint-id</span>)
+      set to a unique value.
+
+    %h4 close and close_and_never_show parts
+    %p
+      Component parts with the names <span class="inlineCode">close</span> and <span class="inlineCode">close_and_never_show</span>
+      behave respectfully and close the hint when clicked. The latter makes it impossible to reopen the hint again, even after the page is reloaded -
+      unless of course a hint is opened with one of the events from <span class="inlineCode">#force_show_events</span>.
