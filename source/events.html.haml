@@ -175,3 +175,11 @@ title: "Events - NestUI"
       The last statement demonstrates how we can lock all events instead of listing each event name
       specifically. Can sometimes be useful when we want to completely lock the component from interacting
       with the outer world.
+
+    %h4 Listening to own events
+    %p
+      Sometimes it's useful for a Component to be able to listen to its own (non-native) events. If this is required,
+      use <span class="inlineCode">this</span> as a role for the event:
+
+    %pre
+      %code.language-dart= partial "code_partials/events_1_14.dart"

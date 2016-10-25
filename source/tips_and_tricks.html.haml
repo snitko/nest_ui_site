@@ -56,3 +56,14 @@ title: "Examples - NestUI"
 
     For more info on <span class="inlineCode">updatePropertiesFromNodes()</span> method see
     the <a href="/properties.html#updating_from_DOM">Properties: updating from DOM</a> section.
+
+    %h2 children_initialized event
+    %p
+      Sometimes it's good enough to just put some code in <span class="inlineCode">afterInitialize()</span> because
+      it gets executed BEFORE children are initialized. And some components need initialization code that deals with its
+      children that need to be initialized by the time it executes. Thus a special event <span class="inlineCode">.children_initialized</span>
+      exists for all components. You can create a handler for it either in the constructor or in <span class="inlineCode">afterInitialize()</span>
+      and the code in the handler will only execute when all component's children are initialized:
+
+    %pre
+      %code.language-dart= partial "code_partials/tips_and_tricks_1_3.dart"
