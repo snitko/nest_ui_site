@@ -12,7 +12,7 @@ h4 { margin: 1em 0 0 0; font-size: 150%; }
 h5 { font-size: 95%; font-weight: normal; margin: 0 0 0 0; }
 h6 { font-size: 85%; font-weight: normal; margin: 0 0 0 0; }
 .small { font-size: 80%; line-height: 110%; }
-.note  { font-size: 80%; line-height: 110%; border-left: solid 5px #EADB6C; padding-left: 1em; }
+.note  { font-size: 80%; line-height: 110%; border-left: solid 5px #EADB6C; padding-left: 1em; margin-top: 0.5em; }
 .noTopMargin { margin-top: 0px; }
 .noBottomMargin { margin-bottom: 0px; }
 
@@ -59,4 +59,4 @@ header {
   h5 { margin-top: 1em; }
 }
 
-video { border: solid 1px #aaa; margin-top: 1em; border-radius: 7px; }
+video { border: solid 1px #aaa; margin-top: 1em; margin-bottom: 1em; border-radius: 7px; }

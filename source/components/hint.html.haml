@@ -13,6 +13,12 @@ title: "HintComponent - Components - NestUI"
     %video(autoplay loop muted)
       %source(type="video/webm" src="/previews/hint_component.webm")
 
+    .note
+      You need to manually import this component into your NestUI app as it's not imported by default.
+      To do that, add the following two lines (in the exact order) into the file where you initialize your NestUI app:
+      %pre
+        %code.language-dart= "part 'packages/nest_ui/behaviors/hint_component_behaviors.dart';\npart 'packages/nest_ui/components/hint_component.dart';"
+
     %p
       The purpose of this component is rather simple - display popup hints over other elements on the page whenever
       an event happens to this element: user clicks the element or hovers over it or something else. This component is
