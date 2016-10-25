@@ -1,0 +1,53 @@
+---
+title: "EditableSelectComponent - Components - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Components", submenu: ["components", nil] }
+  .content
+
+    %h2 EditableSelectComponent
+    .note Read <a href="#{$nest_ui_docs}/nest_ui/EditableSelectComponent-class.html">the documentation for this class.</a>
+
+    %p
+      Sometimes you want to allow users to enter values for the select field manually. Perhaps, you want to give them
+      a more explicit way to filter the options. Or, perhaps, you actually want to allow them to enter custom values
+      into the select box. This is what this component is designed to do. It inherits from <span class="inlineCode">SelectComponent</span>
+      and the documentation for <span class="inlineCode">SelectComponent</span> applies
+      to <span class="inlineCode">EditableSelectComponent</span> for the most part too.
+
+    %p
+      To understand how this component works, it's simply better to observe it in action, but here's a number of
+      distinct behaviors you'll notice:
+
+    %ul
+      %li When user begins to type, the list of options is automatically reduced to the ones that match the typed text.
+      %li The select box automatically expands after the user types something in to present the filtered list of options.
+      %li Filtering can occur both by display and input values.
+      %li Pressing enter saves the custom entered <span class="inlineCode">#display_value</span> as <span class="inlineCode">#input_value</span>.
+
+    %h4 allow_custom_options 
+    %p
+      This property defines whether user is able to type in and preserve custom options. If set to false,
+      then when user types something in, then presses ENTER, the typed in text will disappear unless it
+      matches one of the available options. If, however, set to true, pressing ENTER preserves the option in
+      the field and sets <span class="inlineCode">#input_value</span> equal to the <span class="inlineCode">#display_value</span>
+      that was typed in.
+
+    %h4 query_param_name
+    %p
+      Just like its parent component class <span class="inlineCode">SelectComponent</span>, this component can also
+      fetch options from the remote server. There is one additional option though, allowing it to fetch options
+      that match the typed in text and filter out the rest. Whatever user typed in will be sent in a param which name equals to the
+      value of the <span class="inlineCode">query_param_name property</span> - <span class="inlineCode">q</span> by default. For example,
+      if user typed "Ch" into the field, then the resulting query to fetch options may look like this: <span class="inlineCode">/countries.json?q=Ch</span>.
+
+    %p
+      Obviously, your remote server is responsible for supplying the correct list of options (in this case, countries that start with "Ch").
+      <span class="inlineCode">EditableSelectComponent</span> is not responsible for filtering options if remote fetching is on (<span class="inlineCode">#fetch_url</span> property is set) - 
+      it simply sends the request and parses the returned json with options.
+
+    %p
+      If, however, fetching is off (<span class="inlineCode">#fetch_url</span> is null), then filtering occurs automatically as user types,
+      filtering out existing pre-loaded options.
