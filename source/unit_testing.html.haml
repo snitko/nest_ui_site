@@ -1,0 +1,84 @@
+---
+title: "Unit Testing - NestUI"
+---
+
+.mainSection
+
+  = partial "menu", locals: { current_page: "Unit Testing" }
+  .content
+
+    %p
+      It is very important to be able to effectively and easily test all components. That's why there are a number of unit-test helpers
+      that allow NestUI users to test both their own components and also write tests that involve, in one way or another, components
+      that come with NestUI.
+
+    %p
+      To understand how to best unit test components it is highly recommended to go trough the <span class="inlineCode">test/</span> directory
+      in the <a href="https://github.com/snitko/nest_ui/tree/master/test">NestUI repository</a> and read the unit tests.
+      In general, the idea is to have no HTML code anywhere, even if in a separate file.
+      Instead the framework offers a number of convenient helper methods, that build components and the necessary DOM-structure for you.
+
+    %p
+      There are two important helpers from which others derive, called <span class="inlineCode">createDomEl()</span> and <span class="inlineCode">createComponent().</span>
+      Let's take a closer look at them and see how they work.
+
+    .note
+      In order to use test helpers in your unit tests you need to import them inside your unit-test file, for example:
+      %pre
+        %code.language-dart= "part 'packages/nestui/lib/test_helpers/component_test_helpers.dart';\npart 'packages/nestui/lib/test_helpers/hint_component_test_helpers.dart';"
+
+    %h4 createDomEl()
+    %p
+      This helper builds a DOM element for a component class which name is passed as the first argument. For example,
+      <span class="inlineCode">createDomEl("HintComponent")</span> will generate an HTML <span class="inlineCode">&lt;div data-component-class="HintComponent"&gt;&lt;/div&gt;</span>
+      Of course, simply creating one DIV element isn't always enough, so you'll need to make use of other arguments passed to this method. It's best to illustrate
+      by example:
+
+    %pre
+      %code.block.language-dart= partial "code_partials/unit_testing_1_1.dart"
+
+    %p
+      The first thing to notice about this code is the <span class="inlineCode">and</span>
+      argument. It accepts a function which must return a List of of other DOM-elements -
+      in this case those elements are <i>parts</i> (thus the first argument -
+      component class name - is an empty string in nested <span class="inlineCode">createDomEl()</span> calls),
+      but they might as well have been been DOM-elements
+      representing other components. The <span class="inlineCode">and</span> argument allows us to build
+      structures as complex as you wish.
+
+    %p
+      Other arguments are basically self-descriptive. If you're not sure what they mean, consult the
+      <a href="">documentation for Unit Testing.</a>
+
+    %h4 createComponent()
+    %p
+      This helper is very similar to <span class="inlineCode">createDomEl()</span> and actually uses
+      it internally. However, it not only creates DOM-elements, but also initializes components
+      those DOM-elements represent. Here's an example of creating a component in the test code:
+
+    %pre
+      %code.block.language-dart= partial "code_partials/unit_testing_1_2.dart"
+
+    %p
+      As you can see from this example, the argument list is virtually identical to the <span class="inlineCode">createDomEl()</span>
+      helper. In the <span class="inlineCode">and</span> argument we return other components from the function, however you can
+      easily mix Component and HtmlElement instances in there.
+
+    %h4 When to use what
+    %p
+      It may be confusing at first, which one of those methods to use in your own tests. It usually depends on how you need to
+      create your components - do you initialize them from other components' DOM structures or do you just need to test them independently?
+      The latter prompts <span class="inlineCode">createComponent()</span> use, while the former looks like a case for <span class="inlineCode">createDomEl()</span>.
+
+    %h4 Other component helpers
+    %p
+      Apart from those two helpers, most components have their specialized helpers such as <span class="inlineCode">createHintElement()</span> or
+      <span class="inlineCode">createRadioButtonComponent()</span>. To find out more about those, take a look at <span class="inlineCode">lib/test_helpers</span>
+      <a href="https://github.com/snitko/nest_ui/tree/master/lib/test_helpers">in NestUI repository</a>.
+
+    .note
+      When writing your own components and unit tests for them, it's a good idea to create custom-helpers that build
+      DOM-elements and component instances themselves. For example, if you wrote a <span class="inlineCode">MyCustomComponent</span> class,
+      you'd probably need to create <span class="inlineCode">createMyCustomElement()</span> and <span class="inlineCode">createMyCustomComponent()</span>
+      helpers. You can create those methods right inside your unit-test file for the component. However in NestUI helpers for various components
+      live under <span class="inlineCode">lib/test_helpers</span>.
