@@ -67,3 +67,22 @@ title: "Examples - NestUI"
 
     %pre
       %code.language-dart= partial "code_partials/tips_and_tricks_1_3.dart"
+
+    %h2 Component DOM methods
+    %p
+      Component offers a number of convenient methods to find various elements in its DOM-structure:
+
+    %ul
+      %li
+        <span class="inlineCode">allDomDescendants()</span> gets a list of all DOM-descendants of the <span class="inlineCode">#dom_element</span> that are not included
+        into other child Component DOM-structures. The returned List lacks proper hierarchy.
+      %li
+        <span class="inlineCode">allDomDescendantsAndSelfWithAttr()</span> and <span class="inlineCode">firstDomDescendantOrSelfWithAttr()</span> find descendants
+        that have have certain attributes/values.
+      %li
+        <span class="inlineCode">findAllParts()</span> and <span class="inlineCode">findPart()</span> will find HtmlElement(s) that correspond to certain <i>parts</i>.
+      %li
+        <span class="inlineCode">findPropertyElements()</span> and <span class="inlineCode">findFirstPropertyElement()</span>
+        will find HtmlElement(s) that correspond to certain <i>properties</i>.
+
+    %p For a more thorough information on those methods and arguments they accept, consult <a href="http://nestui-docs.romansnitko.com/nest_ui/ComponentDom-class.html">the documentation for ComponentDom</a> module.
