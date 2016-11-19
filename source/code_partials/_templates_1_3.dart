@@ -6,18 +6,16 @@ class ButtonComponent extends Component {
 
   List native_events = ["click"];
 
-  ButtonComponent() {
-  
-    event_handlers.add(
-      event: 'click',
-      role:  #self,
-      handler: (self,p) {
-        var c = new CommentComponent();
-        c.text = "New comment";
-        self.parent.addChild(c); // self.parent is the root component here
-      }
-    );
-  
+  ButtonComponent() {}
+
+  @override void afterInitialize() {
+    
+    ...
+      
+    afterParentInitialized("button1", (self,publisher) {
+      print("My parent is finally done initializing! Let's unlock my siblings!");
+      this.parent.children.forEach((button) => button.behave("unlock"));
+    });
   }
 
 }

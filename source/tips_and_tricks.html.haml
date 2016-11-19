@@ -57,16 +57,34 @@ title: "Examples - NestUI"
     For more info on <span class="inlineCode">updatePropertiesFromNodes()</span> method see
     the <a href="/properties.html#updating_from_DOM">Properties: updating from DOM</a> section.
 
-    %h2 children_initialized event
+    %h2 afterParentInitialized event handler
     %p
-      Sometimes it's good enough to just put some code in <span class="inlineCode">afterInitialize()</span> because
-      it gets executed BEFORE children are initialized. And some components need initialization code that deals with its
-      children that need to be initialized by the time it executes. Thus a special event <span class="inlineCode">.children_initialized</span>
-      exists for all components. You can create a handler for it either in the constructor or in <span class="inlineCode">afterInitialize()</span>
-      and the code in the handler will only execute when all component's children are initialized:
+      It is sometimes important to wait until all children are loaded and then run some code.
+      Even though <span class="inlineCode">afterInitialize()</span> is
+      called only when Component is done initializing all of its children, it may happen so that you need to run some
+      code in one of the Component's children, but only once the parent is done initializing other children. This can be easily done with
+      the <span class="inlineCode">afterParentInitialized()</span> method (note the <b>ed</b> at the the end of the method name).
+      Unlike its <span class="inlineCode">afterInitalize()</span> cousin, this method is not supposed to be overridden, but rather
+      called from the constructor or even from <span class="inlineCode">afterInitialize()</span> itself. Here's how you use it:
 
     %pre
       %code.language-dart= partial "code_partials/tips_and_tricks_1_3.dart"
+
+    %p
+      The first thing to notice is the first argument to the <span class="inlineCode">afterParentInitialized()</span>,
+      which in this case is String <i>button1</i>. What this argument actually does, it is being
+      added as a <i>role</i> to the current component, so that it's uniquely identified by its
+      parent. You can generate the value for this component dynamically, so that it will only
+      affect a particular instance of the Component, and not all components (for an example and a use case,
+      see code for <span class="inlineCode">HintComponent</span>).
+
+    %p
+      The second argument is simply a function that you're usually passing when creating event handlers,
+      with all familiar arguments.
+
+    %p
+      <span class="inlineCode">afterParentInitialized()</span> is basically a convenient way for siblings to wait
+      until each one of them is initialized.
 
     %h2 Component DOM methods
     %p
